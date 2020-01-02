@@ -32,4 +32,17 @@ class AdminController extends Controller
 
         return back()->with('success', 'Excel Data Imported successfully.');
     }
+
+    public function show_std_lesson(){
+        return view('students.std_lesson');
+    }
+
+    public function upload_std_lesson(){
+        $students = Student::all();
+        return view('students.upload_std_lesson' , compact('students'));
+    }
+
+    public function upload_std_lesson_pdf(Request $request){
+        dd($request->all());
+    }
 }
