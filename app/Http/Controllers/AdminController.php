@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Student;
+use App\Lesson;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Excel;
@@ -43,6 +44,30 @@ class AdminController extends Controller
     }
 
     public function upload_std_lesson_pdf(Request $request){
-        dd($request->all());
+
+        $attributes = $this->validate($request, [
+            'lesson_name'  => 'required',
+            'lesson_description'  => 'required',
+            'class'  => 'required',
+            'section'  => 'required',
+            'student_lesson'  => 'required|mimes:pdf'
+        ]);
+
+        $uniqueFileName = uniqid() . 
+        $request->file('student_lesson')->getClientOriginalName() . '.' . 
+        $request->file('student_lesson')->getClientOriginalExtension();
+
+        $request->file('student_lesson')->move(public_path('files') , $uniqueFileName);
+
+        Lesson::create([
+            'lesson_name' => $attributes['lesson_name'],
+            'lesson_description' => $attributes['lesson_description'],
+            'class' => $attributes['class'],
+            'section' => $attributes['section'],
+            'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
+        ]);
+
+        return redirect('/students/lesson-plan')->with('success', 'File uploaded successfully.');
+        
     }
 }

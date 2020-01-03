@@ -18,25 +18,17 @@
                 </ul>
                 </div>
                 @endif
-            
-                @if($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                </div>
-                @endif
-
-                @if($message = Session::get('unsuccessful'))
-                <div class="alert alert-danger alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                </div>
-                @endif
+                
             <form action={{ route ('students-lesson-plan-upload-pdf')}} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="">Lesson Name</label>
                     <input type="text" name="lesson_name" class="form-control" placeholder="Lesson">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Lesson Description</label>
+                    <textarea class="form-control" rows="4" name="lesson_description" placeholder="Lesson Description"></textarea>
                 </div>
 
                 <div class="form-group">

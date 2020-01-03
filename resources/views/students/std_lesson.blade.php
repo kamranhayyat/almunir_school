@@ -18,6 +18,12 @@
                     <th>Operations</th>
                 </thead>
                 <tbody>
+                    @if($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
                     {{-- @foreach($students as $student)
                     <tr>
                         <td>{{$student['roll_no']}}</td>
