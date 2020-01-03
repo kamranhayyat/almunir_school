@@ -32,3 +32,6 @@ Route::get('/students/lesson-plan-upload', 'AdminController@upload_std_lesson')
 
 Route::post('/students/lesson-plan-upload' , 'AdminController@upload_std_lesson_pdf')
 ->name('students-lesson-plan-upload-pdf');
+
+Route::get('/download/{pdf}', 'AdminController@getDownload')
+->name('download-pdf');

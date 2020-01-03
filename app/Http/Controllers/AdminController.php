@@ -35,7 +35,8 @@ class AdminController extends Controller
     }
 
     public function show_std_lesson(){
-        return view('students.std_lesson');
+        $lessons = Lesson::paginate(20);
+        return view('students.std_lesson', compact('lessons'));
     }
 
     public function upload_std_lesson(){
@@ -53,8 +54,7 @@ class AdminController extends Controller
             'student_lesson'  => 'required|mimes:pdf'
         ]);
 
-        $uniqueFileName = uniqid() . 
-        $request->file('student_lesson')->getClientOriginalName() . '.' . 
+        $uniqueFileName = $attributes['class'] .  '_' . $attributes['section'] . '.' .
         $request->file('student_lesson')->getClientOriginalExtension();
 
         $request->file('student_lesson')->move(public_path('files') , $uniqueFileName);
@@ -69,5 +69,16 @@ class AdminController extends Controller
 
         return redirect('/students/lesson-plan')->with('success', 'File uploaded successfully.');
         
+    }
+
+    public function getDownload($pdf_name)
+    {
+        $file= public_path(). "/files/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
     }
 }

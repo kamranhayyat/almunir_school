@@ -24,20 +24,24 @@
                             <strong>{{ $message }}</strong>
                     </div>
                     @endif
-                    {{-- @foreach($students as $student)
+                    @foreach($lessons as $lesson)
                     <tr>
-                        <td>{{$student['roll_no']}}</td>
-                        <td>{{$student['student_name']}}</td>
-                        <td>{{$student['user_id']}}</td>
-                        <td>{{$student['admission_date']}}</td>
-                        <td>{{$student['class'] . ' / ' . $student['section']}}</td>
-                        <td class="text-center"><button class="btn btn-primary btn-sm">Operations</button></td>
+                        <td>{{$lesson['lesson_name']}}</td>
+                        <td>{{$lesson['lesson_pdf']}}</td>
+                        <td>{{$lesson['class']}}</td>
+                        <td>{{$lesson['section']}}</td>
+                        <td>
+                            <a class="btn btn-success btn-sm" href="{{ route('download-pdf', ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                        </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
             {{-- pagination --}}
-            {{-- {{$students->links()}} --}}
+            {{$lessons->links()}}
         </div>
     </div>
 @endsection
