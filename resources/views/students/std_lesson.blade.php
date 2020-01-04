@@ -24,6 +24,20 @@
                             <strong>{{ $message }}</strong>
                     </div>
                     @endif
+
+                    @if($message = Session::get('success-delete'))
+                    <div class="alert alert-secondary alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
+
+                    @if($message = Session::get('unsuccess-delete'))
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
                     @foreach($lessons as $lesson)
                     <tr>
                         <td>{{$lesson['lesson_name']}}</td>
@@ -31,10 +45,20 @@
                         <td>{{$lesson['class']}}</td>
                         <td>{{$lesson['section']}}</td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="{{ route('download-pdf', ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
+                            <a class="btn btn-success btn-sm" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
                                 <i class="fas fa-download"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                            <form style="display:inline!important;" method="POST" 
+                            action="{{ route('delete-pdf', ['pdf' => base64_encode($lesson['lesson_pdf']),
+                             'id' => base64_encode($lesson['id'])]) }}">
+                                @method('DELETE')
+                                @csrf    
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

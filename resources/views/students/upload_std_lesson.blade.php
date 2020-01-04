@@ -38,7 +38,6 @@
                         @foreach ($students as $student)
                             <option>{{$student['class'] }}</option>
                         @endforeach
-                        <option value=""></option>
                     </select>
                 </div>
 

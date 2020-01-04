@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Student;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Excel;
+use DB;
 
 class AdminController extends Controller
 {
@@ -40,7 +42,7 @@ class AdminController extends Controller
     }
 
     public function upload_std_lesson(){
-        $students = Student::all();
+        $students = Student::distinct()->get(['class' , 'section']);
         return view('students.upload_std_lesson' , compact('students'));
     }
 
@@ -80,5 +82,23 @@ class AdminController extends Controller
                 );      
 
         return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function delete_pdf($pdf_name, $id) {
+        
+        if(file_exists(public_path(). "/files/" . base64_decode($pdf_name))){
+
+            unlink(public_path(). "/files/" . base64_decode($pdf_name));
+
+            Lesson::findOrFail(base64_decode($id))->delete();
+
+            return redirect()->back()->with('success-delete', 'File deleted successfully'); 
+
+        } else {
+
+            return redirect()->back()->with('unsuccess-delete', 'File not found'); 
+
+        }
+
     }
 }

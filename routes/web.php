@@ -33,5 +33,8 @@ Route::get('/students/lesson-plan-upload', 'AdminController@upload_std_lesson')
 Route::post('/students/lesson-plan-upload' , 'AdminController@upload_std_lesson_pdf')
 ->name('students-lesson-plan-upload-pdf');
 
-Route::get('/download/{pdf}', 'AdminController@getDownload')
+Route::get('/download/{pdf}', 'AdminController@get_download')
 ->name('download-pdf');
+
+Route::delete('/delete-pdf/{pdf}/{id}', 'AdminController@delete_pdf')
+->name('delete-pdf');
