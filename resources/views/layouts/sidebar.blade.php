@@ -67,7 +67,8 @@
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Study Module:</h6>
-          <a class="collapse-item" href="login.html">Upload Study Material</a>
+          <a class="collapse-item" href="{{ route('students-study-material') }}">Study Material</a>
+          <a class="collapse-item" href="{{ route('students-study-material-upload-pdf') }}">Upload Study Material</a>
         </div>
       </div>
     </li>
@@ -90,12 +91,13 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Notice Board</span>
+        <span>Notification</span>
       </a>
       <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Notification:</h6>
           <a class="collapse-item" href="login.html">Add Notification</a>
+          <a class="collapse-item" href="login.html">Add Event</a>
         </div>
       </div>
     </li>

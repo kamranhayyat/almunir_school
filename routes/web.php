@@ -38,3 +38,23 @@ Route::get('/download/{pdf}', 'AdminController@get_download')
 
 Route::delete('/delete-pdf/{pdf}/{id}', 'AdminController@delete_pdf')
 ->name('delete-pdf');
+
+Route::get('/students/study-material', 'AdminController@show_std_material')
+->name('students-study-material');
+
+Route::get('/students/study-material-upload', 'AdminController@study_material_upload')
+->name('students-study-material-upload');
+
+Route::post('/students/study-material-upload' , 'AdminController@upload_std_material_pdf')
+->name('students-study-material-upload-pdf');
+
+Route::get('/download/study/{pdf}', 'AdminController@get_download_material')
+->name('download-pdf-material');
+
+Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_material')
+->name('delete-pdf-material');
+
+Route::get('/events', 'AdminController@events');
+Route::get('/events/show', 'AdminController@show_events')->name('show-events');
+Route::get('/events/create','AdminController@create');
+Route::post('/events/create','AdminController@store')->name('store-event');
