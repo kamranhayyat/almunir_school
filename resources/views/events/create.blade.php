@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <form action="{{ route('store-event') }}" method="POST">
-        @csrf
-        Event name:
-        <br />
-        <input type="text" name="title" />
-        <br /><br />
-        Task description:
-        <br />
-        <textarea name="description"></textarea>
-        <br /><br />
-        Start time:
-        <br />
-        <input type="date" name="event_date" />
-        <br /><br />
-        <input type="submit" value="Save" />
-      </form>
-</body>
-</html>
+@extends('layouts.app_layout')
+
+@section('title', 'Almunir Schools')
+
+@section('content')
+<div class="card">
+    <div class="card-header">Add Event</div>
+    <div class="card-body">
+        <form action="{{ route('store-event') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="">Event name</label>
+                <input type="text" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Event description</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="">Event date</label>
+                <input type="date" name="event_date" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+    </div>
+</div>
+    
+@endsection

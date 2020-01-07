@@ -97,7 +97,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Notification:</h6>
           <a class="collapse-item" href="login.html">Add Notification</a>
-          <a class="collapse-item" href="login.html">Add Event</a>
+          <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
+          <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
         </div>
       </div>
     </li>
