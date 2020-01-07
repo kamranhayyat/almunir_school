@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
 use App\Student;
 use App\Lesson;
 use App\Material;
-use App\Event as EventModel;
+use App\Event;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Excel;
-use DB;
-use MaddHatter\LaravelFullcalendar\Event;
 
 class AdminController extends Controller
 {
@@ -37,6 +34,27 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'Excel Data Imported successfully.');
+    }
+
+    public function delete_std($id){
+
+        Student::findOrFail(base64_decode($id))->delete();
+        return redirect()->back()->with('success-delete', 'Record deleted successfully'); 
+        
+    }
+
+    public function toggle_std($id){
+
+        $student = Student::findOrFail(base64_decode($id));
+        if($student['status'] == 1){
+            $student->status = 0;
+            $student->save();
+        } else {
+            $student->status = 1;
+            $student->save();
+        }
+        return redirect()->back();
+
     }
 
     public function show_std_lesson(){
@@ -169,50 +187,17 @@ class AdminController extends Controller
         }
     }
 
-    public function events(){
-
-        if(request()->ajax()) 
-        {
- 
-         $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
-         $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
- 
-         $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
-         return Response::json($data);
-        }
-        return view('hello');
-
-        // $events = EventModel::all();
-        // $event = [];
-        // foreach($events as $row){
-        //     $end_date = $row->end_date . "24:00:00";
-        //     $event = \Calendar::event(
-        //         $row->title,
-        //         true,
-        //         new \DateTime($row->start_date),
-        //         new \DateTime($row->end_date),
-        //         $row->id,
-        //         ['color' => $row->color]
-        //     );
-        // }
-        // $calendar = \Calendar::addEvents($event);
-
-        // return view('hello', compact('events', 'calendar'));
-    }
-    public function create(Request $request)
-    {  
+    public function create(Request $request){  
         return view('events.create');
     }
 
-    public function show_events()
-    {  
-        $events = EventModel::all();
-        return view('calendar', compact('events'));
+    public function show_events(){  
+        $events = Event::all();
+        return view('events.calendar', compact('events'));
     }
 
     public function store(Request $request){
-        // dd($request->all());
-        EventModel::create($request->all());
+        Event::create($request->all());
         return redirect()->route('show-events');
     }
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="{{ route('store-event') }}" method="POST">
-        {{ csrf_field() }}
+        @csrf
         Event name:
         <br />
         <input type="text" name="title" />
@@ -19,17 +19,9 @@
         <br /><br />
         Start time:
         <br />
-        <input type="text" name="event_date" class="date" />
+        <input type="date" name="event_date" />
         <br /><br />
         <input type="submit" value="Save" />
       </form>
 </body>
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
-<script>
-    $('.date').datepicker({
-        autoclose: true,
-        dateFormat: "yy-mm-dd"
-    });
-</script>
 </html>

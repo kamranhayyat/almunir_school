@@ -22,7 +22,13 @@ Route::get('/students/import', 'AdminController@import_std')
 ->name('import-students');
 
 Route::post('/students/import', 'AdminController@import')
-->name('import-students_excel');
+->name('import-students-excel');
+
+Route::delete('/students/delete/{id}', 'AdminController@delete_std')
+->name('delete-student');
+
+Route::post('/students/toggle/{id}', 'AdminController@toggle_std')
+->name('toggle-student');
 
 Route::get('/students/lesson-plan', 'AdminController@show_std_lesson')
 ->name('students-lesson-plan');
@@ -54,7 +60,7 @@ Route::get('/download/study/{pdf}', 'AdminController@get_download_material')
 Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_material')
 ->name('delete-pdf-material');
 
-Route::get('/events', 'AdminController@events');
+//event routes
 Route::get('/events/show', 'AdminController@show_events')->name('show-events');
-Route::get('/events/create','AdminController@create');
+Route::get('/events/create','AdminController@create')->name('create-events');
 Route::post('/events/create','AdminController@store')->name('store-event');

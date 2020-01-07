@@ -32,7 +32,7 @@
                         <strong>{{ $message }}</strong>
                 </div>
                 @endif
-            <form action={{ route ('import-students_excel')}} method="POST" enctype="multipart/form-data">
+            <form action={{ route ('import-students-excel')}} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="">Import Excel</label>
