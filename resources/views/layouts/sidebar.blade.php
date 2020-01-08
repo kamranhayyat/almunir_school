@@ -95,10 +95,12 @@
       </a>
       <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Notification:</h6>
+          <h6 class="collapse-header">Notification Module:</h6>
           <a class="collapse-item" href="login.html">Add Notification</a>
           <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
           <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
+          <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
+          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">View Namaz Timings</a>
         </div>
       </div>
     </li>

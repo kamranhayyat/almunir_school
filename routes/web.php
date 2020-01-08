@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+//admin routes
+Route::get('/', 'AdminController@index')->name('index');
 
 Route::get('/students', 'AdminController@show_std')
 ->name('show-students');
@@ -64,3 +63,16 @@ Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_mat
 Route::get('/events/show', 'AdminController@show_events')->name('show-events');
 Route::get('/events/create','AdminController@create')->name('create-events');
 Route::post('/events/create','AdminController@store')->name('store-event');
+
+//namaz timing routes
+Route::get('/namaz/create','AdminController@create_namaz_timing')
+->name('add-namaz-timings');
+Route::post('/namaz/create','AdminController@store_namaz_timing')
+->name('store-namaz-timings');
+
+Route::get('/namaz/view','AdminController@view_namaz_timing')
+->name('view-namaz-timings');
+Route::get('/namaz/edit/{id}','AdminController@edit_namaz_timing')
+->name('edit-namaz-timings');
+Route::patch('/namaz/edit/{namaz}','AdminController@store_edited_namaz_timing')
+->name('store-namaz-timings-edit');

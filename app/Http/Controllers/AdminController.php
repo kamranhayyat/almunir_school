@@ -6,12 +6,19 @@ use App\Student;
 use App\Lesson;
 use App\Material;
 use App\Event;
+use App\Namaz;
 use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Excel;
+use DB;
 
 class AdminController extends Controller
 {
+    public function index(){
+        $namazs = Namaz::all();
+        return view('dashboard', compact('namazs'));
+    }
+
     public function show_std(){
         $students = Student::paginate(20);
         return view('students.show_std', compact('students'));
@@ -133,7 +140,6 @@ class AdminController extends Controller
     }
 
     public function upload_std_material_pdf(Request $request){
-        // dd($request->all());
         $attributes = $this->validate($request, [
             'material_name'  => 'required',
             'material_description'  => 'required',
@@ -199,5 +205,32 @@ class AdminController extends Controller
     public function store(Request $request){
         Event::create($request->all());
         return redirect()->route('show-events');
+    }
+
+    public function create_namaz_timing(){
+        return view('students.namaz_timing');
+    }
+
+    public function store_namaz_timing(Request $request){
+        Namaz::create($request->all());
+        return redirect('/');
+    }
+
+    public function edit_namaz_timing($id){
+        $namaz = Namaz::findOrFail(base64_decode($id));
+        return view('students.edit_namaz_timing', compact('namaz'));
+    }
+
+    public function view_namaz_timing(){
+        $namazs = Namaz::all();
+        return view('students.view_namaz', compact('namazs'));
+    }
+
+    public function store_edited_namaz_timing(Namaz $namaz){
+        $namaz->update([
+            'namaz_title' => request('namaz_title'),
+            'namaz_timing' => request('namaz_timing')
+        ]);
+        return redirect('/');
     }
 }
