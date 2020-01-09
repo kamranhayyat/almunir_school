@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class UsersImport implements WithMultipleSheets 
+class StudentsImport implements WithMultipleSheets 
 {
    
     public function sheets(): array

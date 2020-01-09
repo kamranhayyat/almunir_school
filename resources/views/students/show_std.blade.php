@@ -12,9 +12,9 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <th>ID</th>
-                    <th>Full ame</th>
-                    <th>Username</th>
-                    <th>Admission Date</th>
+                    <th>Full name</th>
+                    <th>Father name</th>
+                    <th>Date of birth</th>
                     <th>Class / Section</th>
                     <th>Operations</th>
                 </thead>
@@ -29,8 +29,8 @@
                     <tr>
                         <td><i style="color:{{ $student['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['roll_no']}}</td>
                         <td>{{$student['student_name']}}</td>
-                        <td>{{$student['user_id']}}</td>
-                        <td>{{$student['admission_date']}}</td>
+                        <td>{{$student['father_name']}}</td>
+                        <td>{{$student['dob']}}</td>
                         <td>{{$student['class'] . ' / ' . $student['section']}}</td>
                         <td class="text-center">
                             <div class="dropdown">

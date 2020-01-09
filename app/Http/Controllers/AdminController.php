@@ -8,7 +8,7 @@ use App\Material;
 use App\Event;
 use App\Namaz;
 use Illuminate\Http\Request;
-use App\Imports\UsersImport;
+use App\Imports\StudentsImport;
 use Excel;
 use DB;
 
@@ -35,9 +35,9 @@ class AdminController extends Controller
         ]);
 
         try {
-            Excel::import(new UsersImport, request()->file('student_excel'));
-        } catch (\Exception $e) {
-            return back()->with('unsuccessful', 'Excel Data Couldnt Be Imported.');
+            Excel::import(new StudentsImport, request()->file('student_excel'));
+        } catch (\ValidationException $e) {
+            return back()->with('unsuccessful', $e->errors());
         }
 
         return back()->with('success', 'Excel Data Imported successfully.');
