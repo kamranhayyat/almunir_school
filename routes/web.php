@@ -76,3 +76,9 @@ Route::get('/namaz/edit/{id}','AdminController@edit_namaz_timing')
 ->name('edit-namaz-timings');
 Route::patch('/namaz/edit/{namaz}','AdminController@store_edited_namaz_timing')
 ->name('store-namaz-timings-edit');
+
+//notification
+Route::get('/student/notification/create','AdminController@create_notification')
+->name('student-notification-create');
+Route::post('/student/notification/create','AdminController@store_notification')
+->name('student-notification-store');

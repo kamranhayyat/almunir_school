@@ -7,6 +7,7 @@ use App\Lesson;
 use App\Material;
 use App\Event;
 use App\Namaz;
+use App\Notification;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use Excel;
@@ -193,7 +194,7 @@ class AdminController extends Controller
         }
     }
 
-    public function create(Request $request){  
+    public function create(){  
         return view('events.create');
     }
 
@@ -231,6 +232,15 @@ class AdminController extends Controller
             'namaz_title' => request('namaz_title'),
             'namaz_timing' => request('namaz_timing')
         ]);
+        return redirect('/');
+    }
+
+    public function create_notification(){
+        return view('notification.add_notification');
+    }
+
+    public function store_notification(Request $request){
+        Notification::create($request->all());
         return redirect('/');
     }
 }

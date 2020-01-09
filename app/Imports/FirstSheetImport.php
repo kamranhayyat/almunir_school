@@ -57,11 +57,6 @@ class FirstSheetImport implements ToCollection, WithHeadingRow, WithBatchInserts
 
     public function validationFields($row)
     {
-  
-        $customMessages = [
-            'required' => 'Attributes required'
-        ];
-  
         Validator::make($row->toArray(), [
                 'com' =>  'required',
                 'reg' => 'required',
