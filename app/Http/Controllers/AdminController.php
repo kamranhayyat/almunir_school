@@ -16,6 +16,10 @@ use DB;
 
 class AdminController extends Controller
 {
+    public function __construct(){
+        ini_set('max_execution_time', 180);
+    }
+
     public function index(){
         $namazs = Namaz::all();
         return view('dashboard', compact('namazs'));

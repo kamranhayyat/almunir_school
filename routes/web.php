@@ -11,99 +11,102 @@
 |
 */
 
-//admin routes
-Route::get('/', 'AdminController@index')->name('index');
+Route::group(['middleware' => 'auth'], function () {
+    // User needs to be authenticated to enter here.
 
-Route::get('/students', 'AdminController@show_std')
-->name('show-students');
+    //admin routes
+    Route::get('/', 'AdminController@index')->name('index');
 
-Route::get('/students/import', 'AdminController@import_std')
-->name('import-students');
+    Route::get('/students', 'AdminController@show_std')
+    ->name('show-students');
 
-Route::post('/students/import', 'AdminController@import')
-->name('import-students-excel');
+    Route::get('/students/import', 'AdminController@import_std')
+    ->name('import-students');
 
-Route::delete('/students/delete/{id}', 'AdminController@delete_std')
-->name('delete-student');
+    Route::post('/students/import', 'AdminController@import')
+    ->name('import-students-excel');
 
-Route::post('/students/toggle/{id}', 'AdminController@toggle_std')
-->name('toggle-student');
+    Route::delete('/students/delete/{id}', 'AdminController@delete_std')
+    ->name('delete-student');
 
-//lesson plan
-Route::get('/students/lesson-plan', 'AdminController@show_std_lesson')
-->name('students-lesson-plan');
+    Route::post('/students/toggle/{id}', 'AdminController@toggle_std')
+    ->name('toggle-student');
 
-Route::get('/students/lesson-plan-upload', 'AdminController@upload_std_lesson')
-->name('students-lesson-plan-upload');
+    //lesson plan
+    Route::get('/students/lesson-plan', 'AdminController@show_std_lesson')
+    ->name('students-lesson-plan');
 
-Route::post('/students/lesson-plan-upload' , 'AdminController@upload_std_lesson_pdf')
-->name('students-lesson-plan-upload-pdf');
+    Route::get('/students/lesson-plan-upload', 'AdminController@upload_std_lesson')
+    ->name('students-lesson-plan-upload');
 
-Route::get('/download/{pdf}', 'AdminController@get_download')
-->name('download-pdf');
+    Route::post('/students/lesson-plan-upload' , 'AdminController@upload_std_lesson_pdf')
+    ->name('students-lesson-plan-upload-pdf');
 
-Route::delete('/delete-pdf/{pdf}/{id}', 'AdminController@delete_pdf')
-->name('delete-pdf');
+    Route::get('/download/{pdf}', 'AdminController@get_download')
+    ->name('download-pdf');
 
-//study material
-Route::get('/students/study-material', 'AdminController@show_std_material')
-->name('students-study-material');
+    Route::delete('/delete-pdf/{pdf}/{id}', 'AdminController@delete_pdf')
+    ->name('delete-pdf');
 
-Route::get('/students/study-material-upload', 'AdminController@study_material_upload')
-->name('students-study-material-upload');
+    //study material
+    Route::get('/students/study-material', 'AdminController@show_std_material')
+    ->name('students-study-material');
 
-Route::post('/students/study-material-upload' , 'AdminController@upload_std_material_pdf')
-->name('students-study-material-upload-pdf');
+    Route::get('/students/study-material-upload', 'AdminController@study_material_upload')
+    ->name('students-study-material-upload');
 
-Route::get('/download/study/{pdf}', 'AdminController@get_download_material')
-->name('download-pdf-material');
+    Route::post('/students/study-material-upload' , 'AdminController@upload_std_material_pdf')
+    ->name('students-study-material-upload-pdf');
 
-Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_material')
-->name('delete-pdf-material');
+    Route::get('/download/study/{pdf}', 'AdminController@get_download_material')
+    ->name('download-pdf-material');
 
-//complaints
-Route::get('/students/complaints', 'AdminController@show_complaints')
-->name('students-complaints');
+    Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_material')
+    ->name('delete-pdf-material');
 
-Route::get('/students/complaints-upload', 'AdminController@complaints_upload')
-->name('students-complaints-upload');
+    //complaints
+    Route::get('/students/complaints', 'AdminController@show_complaints')
+    ->name('students-complaints');
 
-Route::post('/students/complaints-upload' , 'AdminController@upload_complaints_pdf')
-->name('students-complaints-upload-pdf');
+    Route::get('/students/complaints-upload', 'AdminController@complaints_upload')
+    ->name('students-complaints-upload');
 
-Route::get('/download/complaints/{pdf}', 'AdminController@get_download_complaints')
-->name('download-pdf-complaints');
+    Route::post('/students/complaints-upload' , 'AdminController@upload_complaints_pdf')
+    ->name('students-complaints-upload-pdf');
 
-Route::delete('/delete-pdf-complaints/{pdf}/{id}', 'AdminController@delete_pdf_complaintsl')
-->name('delete-pdf-complaints');
+    Route::get('/download/complaints/{pdf}', 'AdminController@get_download_complaints')
+    ->name('download-pdf-complaints');
 
-//event routes
-Route::get('/events/show', 'AdminController@show_events')->name('show-events');
-Route::get('/events/create','AdminController@create')->name('create-events');
-Route::post('/events/create','AdminController@store')->name('store-event');
+    Route::delete('/delete-pdf-complaints/{pdf}/{id}', 'AdminController@delete_pdf_complaintsl')
+    ->name('delete-pdf-complaints');
 
-//namaz timing routes
-Route::get('/namaz/create','AdminController@create_namaz_timing')
-->name('add-namaz-timings');
-Route::post('/namaz/create','AdminController@store_namaz_timing')
-->name('store-namaz-timings');
+    //event routes
+    Route::get('/events/show', 'AdminController@show_events')->name('show-events');
+    Route::get('/events/create','AdminController@create')->name('create-events');
+    Route::post('/events/create','AdminController@store')->name('store-event');
 
-Route::get('/namaz/view','AdminController@view_namaz_timing')
-->name('view-namaz-timings');
-Route::get('/namaz/edit/{id}','AdminController@edit_namaz_timing')
-->name('edit-namaz-timings');
-Route::patch('/namaz/edit/{namaz}','AdminController@store_edited_namaz_timing')
-->name('store-namaz-timings-edit');
+    //namaz timing routes
+    Route::get('/namaz/create','AdminController@create_namaz_timing')
+    ->name('add-namaz-timings');
+    Route::post('/namaz/create','AdminController@store_namaz_timing')
+    ->name('store-namaz-timings');
 
-//notification
-Route::get('/student/notification/create','AdminController@create_notification')
-->name('student-notification-create');
-Route::post('/student/notification/create','AdminController@store_notification')
-->name('student-notification-store');
+    Route::get('/namaz/view','AdminController@view_namaz_timing')
+    ->name('view-namaz-timings');
+    Route::get('/namaz/edit/{id}','AdminController@edit_namaz_timing')
+    ->name('edit-namaz-timings');
+    Route::patch('/namaz/edit/{namaz}','AdminController@store_edited_namaz_timing')
+    ->name('store-namaz-timings-edit');
+
+    //notification
+    Route::get('/student/notification/create','AdminController@create_notification')
+    ->name('student-notification-create');
+    Route::post('/student/notification/create','AdminController@store_notification')
+    ->name('student-notification-store');
+
+});
 
 //authentication routes
 Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')
 ->name('logout');
-
-Route::get('/home', 'HomeController@index')->name('home');
