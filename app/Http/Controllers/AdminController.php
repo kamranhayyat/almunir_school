@@ -171,6 +171,17 @@ class AdminController extends Controller
         
     }
 
+    public function get_download($pdf_name)
+    {
+        $file= public_path(). "/files/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
     public function get_download_material($pdf_name)
     {
         $file= public_path(). "/files/" . base64_decode($pdf_name);
