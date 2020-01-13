@@ -37,12 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function lessons(){
-        return $this->hasMany(Lesson::class, 'class');
-    }
-
-    public function materials(){
-        return $this->hasMany(Material::class, 'class');
+    public function students(){
+        return $this->hasMany(Student::class, 'father_cnic', 'username');
     }
     
 }
