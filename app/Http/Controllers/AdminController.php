@@ -8,6 +8,7 @@ use App\Material;
 use App\Event;
 use App\Namaz;
 use App\Notification;
+use App\Complaint;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 use Excel;
@@ -242,5 +243,55 @@ class AdminController extends Controller
     public function store_notification(Request $request){
         Notification::create($request->all());
         return redirect('/');
+    }
+
+    public function show_complaints(){
+        $complaints = Complaint::paginate(20);
+        return view('students.std_complaints', compact('complaints'));
+    }
+
+    public function complaints_upload(){
+        return view('students.upload_std_complaint');
+    }
+
+    public function upload_complaints_pdf(Request $request){
+        $attributes = $this->validate($request, [
+            'complaint_name'  => 'required',
+            'complaint_description'  => 'required',
+            'student_complaint'  => 'required|mimes:pdf'
+        ]);
+
+        $uniqueFileName = $attributes['complaint_name'] . '.' .
+        $request->file('student_complaint')->getClientOriginalExtension();
+
+        // dd($uniqueFileName);
+
+        $request->file('student_complaint')->move(public_path('files') , $uniqueFileName);
+
+        Complaint::create([
+            'complaint_name' => $attributes['complaint_name'],
+            'complaint_description' => $attributes['complaint_description'],
+            'complaint_pdf' => str_replace(" ", "_", $uniqueFileName),
+        ]);
+
+        return redirect('/students/complaints')->with('success', 'File uploaded successfully.');
+        
+    }
+
+    public function delete_pdf_complaintsl($pdf_name, $id) {
+        
+        if(file_exists(public_path(). "/files/" . base64_decode($pdf_name))){
+
+            unlink(public_path(). "/files/" . base64_decode($pdf_name));
+
+            Complaint::findOrFail(base64_decode($id))->delete();
+
+            return redirect()->back()->with('success-delete', 'File deleted successfully'); 
+
+        } else {
+
+            return redirect()->back()->with('unsuccess-delete', 'File not found'); 
+
+        }
     }
 }

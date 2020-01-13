@@ -28,6 +28,7 @@
       Modules
     </div>
 
+    @if( isset(auth()->user()->user_type) && auth()->user()->user_type == 1)
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -82,7 +83,8 @@
       <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Complaints Module:</h6>
-          <a class="collapse-item" href="login.html">Add Complain</a>
+          <a class="collapse-item" href="{{ route('students-complaints') }}">Complaints</a>
+          <a class="collapse-item" href="{{ route('students-complaints-upload') }}">Upload Complaints</a>
         </div>
       </div>
     </li>
@@ -104,7 +106,26 @@
         </div>
       </div>
     </li>
+    @endif
 
+    @if( isset(auth()->user()->user_type) && auth()->user()->user_type == 2)
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Parent</span>
+      </a>
+      <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Notification Module:</h6>
+          <a class="collapse-item" href="login.html">Add Notification</a>
+          <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
+          <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
+          <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
+          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">View Namaz Timings</a>
+        </div>
+      </div>
+    </li>
+    @endif
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

@@ -29,6 +29,7 @@ Route::delete('/students/delete/{id}', 'AdminController@delete_std')
 Route::post('/students/toggle/{id}', 'AdminController@toggle_std')
 ->name('toggle-student');
 
+//lesson plan
 Route::get('/students/lesson-plan', 'AdminController@show_std_lesson')
 ->name('students-lesson-plan');
 
@@ -44,6 +45,7 @@ Route::get('/download/{pdf}', 'AdminController@get_download')
 Route::delete('/delete-pdf/{pdf}/{id}', 'AdminController@delete_pdf')
 ->name('delete-pdf');
 
+//study material
 Route::get('/students/study-material', 'AdminController@show_std_material')
 ->name('students-study-material');
 
@@ -58,6 +60,22 @@ Route::get('/download/study/{pdf}', 'AdminController@get_download_material')
 
 Route::delete('/delete-pdf-material/{pdf}/{id}', 'AdminController@delete_pdf_material')
 ->name('delete-pdf-material');
+
+//complaints
+Route::get('/students/complaints', 'AdminController@show_complaints')
+->name('students-complaints');
+
+Route::get('/students/complaints-upload', 'AdminController@complaints_upload')
+->name('students-complaints-upload');
+
+Route::post('/students/complaints-upload' , 'AdminController@upload_complaints_pdf')
+->name('students-complaints-upload-pdf');
+
+Route::get('/download/complaints/{pdf}', 'AdminController@get_download_complaints')
+->name('download-pdf-complaints');
+
+Route::delete('/delete-pdf-complaints/{pdf}/{id}', 'AdminController@delete_pdf_complaintsl')
+->name('delete-pdf-complaints');
 
 //event routes
 Route::get('/events/show', 'AdminController@show_events')->name('show-events');
@@ -82,3 +100,10 @@ Route::get('/student/notification/create','AdminController@create_notification')
 ->name('student-notification-create');
 Route::post('/student/notification/create','AdminController@store_notification')
 ->name('student-notification-store');
+
+//authentication routes
+Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')
+->name('logout');
+
+Route::get('/home', 'HomeController@index')->name('home');

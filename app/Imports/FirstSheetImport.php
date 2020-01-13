@@ -42,8 +42,9 @@ class FirstSheetImport implements ToCollection, WithHeadingRow, WithBatchInserts
 
             User::create([
                 'name' => $row['student_name'],
-                'user_id' => $row['father_cnic'],
+                'username' => $row['father_cnic'],
                 'password' => $row['father_mobile'],
+                'class' => $row['class'],
                 'user_type' => '2',
             ]);
             
