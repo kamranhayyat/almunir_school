@@ -32,4 +32,10 @@
             })
         });
     </script>
+
+<style type='text/css'>
+    .fc-title {
+        color: white;
+    }
+</style>
 @endsection

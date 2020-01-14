@@ -4,9 +4,12 @@
 
 @section('content')
     <?php 
-        foreach($materials as $material){
-           echo "<pre>"; print_r($material->lessons->toArray());
-        }exit;
+        // foreach($materials as $material){
+        //     $lesson = $material->lessons;
+        //     dd($lesson[0]['lesson_description']);
+        //    echo "<pre>"; print_r($material->lessons->toArray());
+        // }exit;
+        $i = 0;
     ?>
     <div class="card">
         <div class="card-header">
@@ -18,8 +21,7 @@
                 <thead>
                     <th>Title</th>
                     <th>Study Material</th>
-                    <th>Class</th>
-                    <th>Section</th>
+                    <th>Class/Section</th>
                     <th>Operations</th>
                 </thead>
                 <tbody>
@@ -45,19 +47,19 @@
                     @endif
                     @foreach($materials as $material)
                     <tr>
-                        <td>{{$material['material_name']}}</td>
-                        <td>{{$material['material_pdf']}}</td>
-                        <td>{{$material['class']}}</td>
-                        <td>{{$material['section']}}</td>
+                        <?php $lessons = $material->lessons; ?>
+                        <td>{{$lessons[0]['lesson_name']}}</td>
+                        <td>{{$lessons[0]['lesson_description']}}</td>
+                        <td>{{$lessons[0]['class_section']}}</td>
                         <td>
                             <a class="btn btn-success btn-sm" 
                             href="{{ route('download-pdf-material', 
-                            ['pdf' => base64_encode($material['material_pdf'])]) }}">
+                            ['pdf' => base64_encode($lessons[0]['id'])]) }}">
                                 <i class="fas fa-download"></i>
                             </a>
                             <form style="display:inline!important;" method="POST" 
-                            action="{{ route('delete-pdf-material', ['pdf' => base64_encode($material['material_pdf']),
-                             'id' => base64_encode($material['id'])]) }}">
+                            action="{{ route('delete-pdf-material', ['pdf' => base64_encode($lessons[0]['id']),
+                             'id' => base64_encode($lessons[0]['id'])]) }}">
                                 @method('DELETE')
                                 @csrf    
                                 <button class="btn btn-danger btn-sm">
@@ -70,7 +72,7 @@
                 </tbody>
             </table>
             {{-- pagination --}}
-            {{$materials->links()}}
+            {{-- {{$materials->links()}} --}}
         </div>
     </div>
 @endsection

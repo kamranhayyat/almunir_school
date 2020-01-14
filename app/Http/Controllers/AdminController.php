@@ -20,22 +20,31 @@ class AdminController extends Controller
         ini_set('max_execution_time', 180);
     }
 
+    public function unauthorized_action(){
+        if(auth()->user()->user_type != 1){
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
     public function index(){
         $namazs = Namaz::all();
-        return view('dashboard', compact('namazs'));
+        $notifications = Notification::all();
+        return view('dashboard', compact('namazs', 'notifications'));
     }
 
     public function show_std(){
+        $this->unauthorized_action();
         $students = Student::paginate(20);
         return view('students.show_std', compact('students'));
     }
 
     public function import_std(){
+        $this->unauthorized_action();
         return view('students.import_std');
     }
 
     public function import(Request $request){
-        
+        $this->unauthorized_action();
         $attributes = $this->validate($request, [
             'student_excel'  => 'required|mimes:xls,xlsx'
         ]);
@@ -50,14 +59,14 @@ class AdminController extends Controller
     }
 
     public function delete_std($id){
-
+        $this->unauthorized_action();
         Student::findOrFail(base64_decode($id))->delete();
         return redirect()->back()->with('success-delete', 'Record deleted successfully'); 
         
     }
 
     public function toggle_std($id){
-
+        $this->unauthorized_action();
         $student = Student::findOrFail(base64_decode($id));
         if($student['status'] == 1){
             $student->status = 0;
@@ -71,17 +80,20 @@ class AdminController extends Controller
     }
 
     public function show_std_lesson(){
+        $this->unauthorized_action();
         $lessons = Lesson::paginate(20);
         return view('students.std_lesson', compact('lessons'));
     }
 
     public function upload_std_lesson(){
-        $students = Student::distinct()->get(['class_section']);
+        $this->unauthorized_action();
+        $students = Student::distinct()->get(['class', 'section']);
+        // dd($students);
         return view('students.upload_std_lesson' , compact('students'));
     }
 
     public function upload_std_lesson_pdf(Request $request){
-
+        $this->unauthorized_action();
         $attributes = $this->validate($request, [
             'lesson_name'  => 'required',
             'lesson_description'  => 'required',
@@ -98,7 +110,7 @@ class AdminController extends Controller
         Lesson::create([
             'lesson_name' => $attributes['lesson_name'],
             'lesson_description' => $attributes['lesson_description'],
-            'class_section' => $attributes['class'] . $attributes['section'],
+            'class_section' => $attributes['class'] . ' ' .$attributes['section'],
             'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
         ]);
 
@@ -106,8 +118,8 @@ class AdminController extends Controller
         
     }
 
-    public function getDownload($pdf_name)
-    {
+    public function getDownload($pdf_name){
+        $this->unauthorized_action();
         $file= public_path(). "/files/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -118,7 +130,7 @@ class AdminController extends Controller
     }
 
     public function delete_pdf($pdf_name, $id) {
-        
+        $this->unauthorized_action();
         if(file_exists(public_path(). "/files/" . base64_decode($pdf_name))){
 
             unlink(public_path(). "/files/" . base64_decode($pdf_name));
@@ -135,16 +147,19 @@ class AdminController extends Controller
     }
 
     public function show_std_material(){
+        $this->unauthorized_action();
         $materials = Material::paginate(20);
         return view('students.std_material', compact('materials'));
     }
 
     public function study_material_upload(){
+        $this->unauthorized_action();
         $students = Student::distinct()->get(['class' , 'section']);
         return view('students.upload_std_material' , compact('students'));
     }
 
     public function upload_std_material_pdf(Request $request){
+        $this->unauthorized_action();
         $attributes = $this->validate($request, [
             'material_name'  => 'required',
             'material_description'  => 'required',
@@ -169,8 +184,8 @@ class AdminController extends Controller
         
     }
 
-    public function get_download($pdf_name)
-    {
+    public function get_download($pdf_name){
+        $this->unauthorized_action();
         $file= public_path(). "/files/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -180,8 +195,8 @@ class AdminController extends Controller
         return response()->download($file, 'filename.pdf', $headers);
     }
 
-    public function get_download_material($pdf_name)
-    {
+    public function get_download_material($pdf_name){
+        $this->unauthorized_action();
         $file= public_path(). "/files/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -192,7 +207,7 @@ class AdminController extends Controller
     }
 
     public function delete_pdf_material($pdf_name, $id) {
-        
+        $this->unauthorized_action();
         if(file_exists(public_path(). "/files/" . base64_decode($pdf_name))){
 
             unlink(public_path(). "/files/" . base64_decode($pdf_name));
@@ -209,6 +224,7 @@ class AdminController extends Controller
     }
 
     public function create(){  
+        $this->unauthorized_action();
         return view('events.create');
     }
 
@@ -218,20 +234,24 @@ class AdminController extends Controller
     }
 
     public function store(Request $request){
+        $this->unauthorized_action();
         Event::create($request->all());
         return redirect()->route('show-events');
     }
 
     public function create_namaz_timing(){
+        $this->unauthorized_action();
         return view('students.namaz_timing');
     }
 
     public function store_namaz_timing(Request $request){
+        $this->unauthorized_action();
         Namaz::create($request->all());
         return redirect('/');
     }
 
     public function edit_namaz_timing($id){
+        $this->unauthorized_action();
         $namaz = Namaz::findOrFail(base64_decode($id));
         return view('students.edit_namaz_timing', compact('namaz'));
     }
@@ -242,6 +262,7 @@ class AdminController extends Controller
     }
 
     public function store_edited_namaz_timing(Namaz $namaz){
+        $this->unauthorized_action();
         $namaz->update([
             'namaz_title' => request('namaz_title'),
             'namaz_timing' => request('namaz_timing')
@@ -250,10 +271,12 @@ class AdminController extends Controller
     }
 
     public function create_notification(){
+        $this->unauthorized_action();
         return view('notification.add_notification');
     }
 
     public function store_notification(Request $request){
+        $this->unauthorized_action();
         Notification::create($request->all());
         return redirect('/');
     }
@@ -264,10 +287,12 @@ class AdminController extends Controller
     }
 
     public function complaints_upload(){
+        $this->unauthorized_action();
         return view('students.upload_std_complaint');
     }
 
     public function upload_complaints_pdf(Request $request){
+        $this->unauthorized_action();
         $attributes = $this->validate($request, [
             'complaint_name'  => 'required',
             'complaint_description'  => 'required',
@@ -276,8 +301,6 @@ class AdminController extends Controller
 
         $uniqueFileName = $attributes['complaint_name'] . '.' .
         $request->file('student_complaint')->getClientOriginalExtension();
-
-        // dd($uniqueFileName);
 
         $request->file('student_complaint')->move(public_path('files') , $uniqueFileName);
 
@@ -292,7 +315,7 @@ class AdminController extends Controller
     }
 
     public function delete_pdf_complaintsl($pdf_name, $id) {
-        
+        $this->unauthorized_action();
         if(file_exists(public_path(). "/files/" . base64_decode($pdf_name))){
 
             unlink(public_path(). "/files/" . base64_decode($pdf_name));
@@ -318,7 +341,7 @@ class AdminController extends Controller
     public function show_children_study_material(){
 
         $materials = auth()->user()->students;
-        return view('children.show_children_study_material', compact('materialsF'));
+        return view('children.show_children_study_material', compact('materials'));
         
     }
 }

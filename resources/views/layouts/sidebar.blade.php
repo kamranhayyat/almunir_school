@@ -120,7 +120,7 @@
           <a class="collapse-item" href="{{ route('show-childrens') }}">Show Students</a>
           <a class="collapse-item" href="{{ route('show-childrens-study-material') }}">Study Material</a>
           <a class="collapse-item" href="{{ route('view-namaz-timings') }}">Lesson Plan</a>
-          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">Show Events</a>
+          <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
         </div>
       </div>
     </li>

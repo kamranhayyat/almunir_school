@@ -26,6 +26,8 @@ class FirstSheetImport implements ToCollection, WithHeadingRow, WithBatchInserts
                 'father_name' => $row['father_name'],
                 'gender' => $row['gender'],
                 'dob' => date("Y-m-d", strtotime(str_replace("/","-",$date_of_birth[0]))),
+                'class' => $row['class'],
+                'section' => $row['section'],
                 'class_section' => $row['class']. ' ' .$row['section'],
                 'father_cnic' => $row['father_cnic'],
                 'father_mobile' => $row['father_mobile'],
@@ -42,7 +44,6 @@ class FirstSheetImport implements ToCollection, WithHeadingRow, WithBatchInserts
             User::create([
                 'username' => $row['father_cnic'],
                 'password' => bcrypt($row['father_mobile']),
-                'class' => $row['class'],
                 'user_type' => '2',
             ]);
             
