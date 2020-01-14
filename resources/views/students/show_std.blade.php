@@ -25,6 +25,13 @@
                             <strong>{{ $message }}</strong>
                     </div>
                     @endif
+
+                    @if($message = Session::get('success-update'))
+                    <div class="alert alert-success alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                    </div>
+                    @endif
                     @foreach($students as $student)
                     <tr>
                         <td><i style="color:{{ $student['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['roll_no']}}</td>
@@ -43,6 +50,9 @@
                                         @csrf
                                         <button type="submit" class="dropdown-item">Delete</button>
                                     </form>
+                                    
+                                    <a href="{{ route('show-student', ['id' => base64_encode($student['id'])]) }}" class="dropdown-item">Edit</a>
+                                    
                                     <form action="{{ route('toggle-student', ['id' => base64_encode($student['id'])]) }}" method="POST">
                                         @csrf
                                     <button type="submit" class="dropdown-item">Toggle Status</button>

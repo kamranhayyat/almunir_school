@@ -10,11 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // Route::get('/students/import', 'AdminController@import_std')
 //     ->name('import-students');
 
 //     Route::post('/students/import', 'AdminController@import')
 //     ->name('import-students-excel');
+
 Route::group(['middleware' => 'auth'], function () {
     // User needs to be authenticated to enter here.
 
@@ -35,6 +37,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/students/toggle/{id}', 'AdminController@toggle_std')
     ->name('toggle-student');
+
+    Route::get('/students/show/{id}', 'AdminController@show_individual_std')
+    ->name('show-student');
+
+    Route::patch('/students/show/{id}', 'AdminController@edit_std')
+    ->name('edit-student');
 
     //lesson plan
     Route::get('/students/lesson-plan', 'AdminController@show_std_lesson')

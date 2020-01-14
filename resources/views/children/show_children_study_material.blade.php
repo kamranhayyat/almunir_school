@@ -3,18 +3,10 @@
 @section('title', 'Almunir Schools')
 
 @section('content')
-    <?php 
-        // foreach($materials as $material){
-        //     $lesson = $material->lessons;
-        //     dd($lesson[0]['lesson_description']);
-        //    echo "<pre>"; print_r($material->lessons->toArray());
-        // }exit;
-        $i = 0;
-    ?>
     <div class="card">
         <div class="card-header">
-           List Study Material
-            <a href="{{ route('students-study-material-upload') }}"><button class="btn btn-primary btn-sm float-right">Upload Student Material</button></a>
+           List Student Lessons
+            {{-- <a href="{{ route('students-study-material-upload') }}"><button class="btn btn-primary btn-sm float-right">Upload Student Material</button></a> --}}
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped">
@@ -45,34 +37,31 @@
                             <strong>{{ $message }}</strong>
                     </div>
                     @endif
-                    @foreach($materials as $material)
+                    @foreach($students as $key => $material)
                     <tr>
-                        <?php $lessons = $material->lessons; ?>
-                        <td>{{$lessons[0]['lesson_name']}}</td>
-                        <td>{{$lessons[0]['lesson_description']}}</td>
-                        <td>{{$lessons[0]['class_section']}}</td>
+                        <?php 
+                        // dd($material[$key]);
+                        if($material == null)
+                        {   
+                            continue;
+                        }
+                        ?>
+                        <td>{{$material[$key]['lesson_name']}}</td>
+                        <td>{{$material[$key]['lesson_description']}}</td>
+                        <td>{{$material[$key]['class_section']}}</td>
                         <td>
                             <a class="btn btn-success btn-sm" 
-                            href="{{ route('download-pdf-material', 
-                            ['pdf' => base64_encode($lessons[0]['id'])]) }}">
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($material[$key]['lesson_pdf'])]) }}">
                                 <i class="fas fa-download"></i>
                             </a>
-                            <form style="display:inline!important;" method="POST" 
-                            action="{{ route('delete-pdf-material', ['pdf' => base64_encode($lessons[0]['id']),
-                             'id' => base64_encode($lessons[0]['id'])]) }}">
-                                @method('DELETE')
-                                @csrf    
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
                         </td>
-                    </tr>
+                    </tr>   
                     @endforeach
                 </tbody>
             </table>
             {{-- pagination --}}
-            {{-- {{$materials->links()}} --}}
+            {{-- {{$students->links()}} --}}
         </div>
     </div>
 @endsection

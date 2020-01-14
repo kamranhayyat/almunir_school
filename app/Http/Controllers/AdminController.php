@@ -79,6 +79,33 @@ class AdminController extends Controller
 
     }
 
+    public function show_individual_std($id){
+        $this->unauthorized_action();
+        $student = Student::findOrFail(base64_decode($id));
+        return view('students.show_individual_std', compact('student'));
+    }
+
+    public function edit_std(Request $request, $id){
+        $this->unauthorized_action();
+        $student = Student::findOrFail(base64_decode($id));
+        
+        $student->com_no = request('com_no');
+        $student->reg_no = request('reg_no');
+        $student->student_name = request('student_name');
+        $student->father_name = request('father_name');
+        $student->gender = request('gender');
+        $student->dob = request('dob');
+        $student->class = request('class');
+        $student->section = request('section');
+        $student->father_cnic = request('father_cnic');
+        $student->father_mobile = request('father_mobile');
+
+        $student->save();
+
+        return redirect('/students')->with('success-update', 'Record updated successfully'); 
+
+    }
+
     public function show_std_lesson(){
         $this->unauthorized_action();
         $lessons = Lesson::paginate(20);
@@ -185,7 +212,7 @@ class AdminController extends Controller
     }
 
     public function get_download($pdf_name){
-        $this->unauthorized_action();
+        
         $file= public_path(). "/files/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -196,7 +223,7 @@ class AdminController extends Controller
     }
 
     public function get_download_material($pdf_name){
-        $this->unauthorized_action();
+        
         $file= public_path(). "/files/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -340,8 +367,17 @@ class AdminController extends Controller
 
     public function show_children_study_material(){
 
-        $materials = auth()->user()->students;
-        return view('children.show_children_study_material', compact('materials'));
-        
+        $studentss = auth()->user()->students;
+        $students = [];
+        foreach($studentss as $key => $student) {
+            if(!isset($student->lessons[$key]['id']) &&
+                empty($student->lessons[$key]['id'])){
+                $students[$key] = null;
+             }
+            else {
+                $students[$key] = $student->lessons;
+            }
+        }
+        return view('children.show_children_study_material', compact('students'));  
     }
 }
