@@ -9,6 +9,6 @@ class Student extends Model
     protected $guarded = [];
 
     public function lessons(){
-        return $this->hasMany(Lesson::class, 'class', 'class');
+        return $this->hasMany(Lesson::class, 'class_section', 'class_section');
     }
 }

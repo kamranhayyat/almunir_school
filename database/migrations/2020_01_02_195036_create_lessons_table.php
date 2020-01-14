@@ -17,8 +17,7 @@ class CreateLessonsTable extends Migration
             $table->bigIncrements('id');
             $table->string('lesson_name');
             $table->text('lesson_description');
-            $table->string('class');
-            $table->string('section');
+            $table->string('class_section');
             $table->string('lesson_pdf');
             $table->timestamps();
         });

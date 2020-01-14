@@ -76,7 +76,7 @@ class AdminController extends Controller
     }
 
     public function upload_std_lesson(){
-        $students = Student::distinct()->get(['class' , 'section']);
+        $students = Student::distinct()->get(['class_section']);
         return view('students.upload_std_lesson' , compact('students'));
     }
 
@@ -98,8 +98,7 @@ class AdminController extends Controller
         Lesson::create([
             'lesson_name' => $attributes['lesson_name'],
             'lesson_description' => $attributes['lesson_description'],
-            'class' => $attributes['class'],
-            'section' => $attributes['section'],
+            'class_section' => $attributes['class'] . $attributes['section'],
             'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
         ]);
 
@@ -162,8 +161,7 @@ class AdminController extends Controller
         Material::create([
             'material_name' => $attributes['material_name'],
             'material_description' => $attributes['material_description'],
-            'class' => $attributes['class'],
-            'section' => $attributes['section'],
+            'class_section' => $attributes['class'] . $attributes['section'],
             'material_pdf' => str_replace(" ", "_", $uniqueFileName),
         ]);
 
@@ -308,5 +306,19 @@ class AdminController extends Controller
             return redirect()->back()->with('unsuccess-delete', 'File not found'); 
 
         }
+    }
+
+    public function show_children(){
+
+        $childrens = auth()->user()->students;
+        return view('children.show_children', compact('childrens'));
+
+    }
+
+    public function show_children_study_material(){
+
+        $materials = auth()->user()->students;
+        return view('children.show_children_study_material', compact('materialsF'));
+        
     }
 }

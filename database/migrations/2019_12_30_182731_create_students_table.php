@@ -21,8 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('father_name');
             $table->string('gender');
             $table->date('dob');
-            $table->string('class');
-            $table->string('section');
+            $table->string('class_section');
             $table->string('father_cnic');
             $table->string('father_mobile');
             $table->string('status');

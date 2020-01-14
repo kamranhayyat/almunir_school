@@ -112,16 +112,15 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
-        <span>Parent</span>
+        <span>Students</span>
       </a>
       <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Notification Module:</h6>
-          <a class="collapse-item" href="login.html">Add Notification</a>
-          <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
-          <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
-          <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
-          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">View Namaz Timings</a>
+          <h6 class="collapse-header">Students Module:</h6>
+          <a class="collapse-item" href="{{ route('show-childrens') }}">Show Students</a>
+          <a class="collapse-item" href="{{ route('show-childrens-study-material') }}">Study Material</a>
+          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">Lesson Plan</a>
+          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">Show Events</a>
         </div>
       </div>
     </li>

@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::group(['middleware' => 'auth'], function () {
     // User needs to be authenticated to enter here.
 
@@ -19,6 +18,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/students', 'AdminController@show_std')
     ->name('show-students');
+
+    Route::get('/childrens', 'AdminController@show_children')
+    ->name('show-childrens');
+
+    Route::get('/childrens/study-material', 'AdminController@show_children_study_material')
+    ->name('show-childrens-study-material');
 
     Route::get('/students/import', 'AdminController@import_std')
     ->name('import-students');

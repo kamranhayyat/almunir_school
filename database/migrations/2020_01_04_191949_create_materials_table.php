@@ -17,8 +17,7 @@ class CreateMaterialsTable extends Migration
             $table->bigIncrements('id');
             $table->string('material_name');
             $table->text('material_description');
-            $table->string('class');
-            $table->string('section');
+            $table->string('class_section');
             $table->string('material_pdf');
             $table->timestamps();
         });
