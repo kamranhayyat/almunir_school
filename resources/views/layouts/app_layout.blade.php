@@ -50,7 +50,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>&copy; Copyright 2019 By Almunir Schools | Powered By Info Ki Duniya</span>
+            <span>&copy; Copyright 2019 By Almunir Schools | Powered By <a href="https://infokidunya.com">Info Ki Dunya</a></span>
           </div>
         </div>
       </footer>

@@ -3,11 +3,11 @@
 @section('title', 'Almunir Schools')
 
 @section('content')
-    @if(isset($namazs) && !empty($namazs) && auth()->user()->user_type == 1)
+    @if(auth()->user()->user_type == 1 || auth()->user()->user_type == 2)
         <div class="display-4 mb-3">
             Namaz Timings
         </div>
-        <div class="lead bg-dark text-white rounded p-3">
+        <div class="lead bg-dark text-white rounded p-3 mb-3">
             <marquee behavior="scroll" direction="left" 
             onmouseover="this.stop();" 
             onmouseout="this.start();">
@@ -19,7 +19,7 @@
     @endif
 
     @if(isset($namazs) && auth()->user()->user_type == 2)
-    <div class="display-4 mb-2">Notifications</div>
+    <div class="display-4 mb-2">Noticeboard</div>
     @foreach($notifications as $notification)
         <div class="card mb-3">
             <div class="card-header">

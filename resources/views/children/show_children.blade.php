@@ -15,6 +15,7 @@
                     <th>Father name</th>
                     <th>Date of birth</th>
                     <th>Class / Section</th>
+                    <th>Operations</th>
                 </thead>
                 <tbody>
                     @if($message = Session::get('success-delete'))
@@ -30,6 +31,7 @@
                         <td>{{$children['father_name']}}</td>
                         <td>{{$children['dob']}}</td>
                         <td>{{$children['class'] . ' / ' . $children['section']}}</td>
+                        <td><a href="{{ route('edit-student', ['id' => base64_encode($children['id'])]) }}" class="btn btn-info btn-sm text-white">View Student</a></td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -98,7 +98,7 @@
       <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Notification Module:</h6>
-          <a class="collapse-item" href="{{ route('student-notification-create') }}">Add Notification</a>
+          <a class="collapse-item" href="{{ route('student-notification-create') }}">Add Noticeboard</a>
           <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
           <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
           <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
@@ -110,16 +110,52 @@
 
     @if( isset(auth()->user()->user_type) && auth()->user()->user_type == 2)
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesStd" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
         <span>Students</span>
       </a>
-      <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div id="collapsePagesStd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Students Module:</h6>
           <a class="collapse-item" href="{{ route('show-childrens') }}">Show Students</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesLesson" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Lesson Plan</span>
+      </a>
+      <div id="collapsePagesLesson" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Lessons Module:</h6>
           <a class="collapse-item" href="{{ route('show-childrens-lesson-plan') }}">Lesson Plan</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesMaterial" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Study Material</span>
+      </a>
+      <div id="collapsePagesMaterial" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Material Module:</h6>
           <a class="collapse-item" href="{{ route('show-childrens-study-material') }}">Study Material</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesEvents" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Events</span>
+      </a>
+      <div id="collapsePagesEvents" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Events Module:</h6>
           <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
         </div>
       </div>

@@ -80,7 +80,7 @@ class AdminController extends Controller
     }
 
     public function show_individual_std($id){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $student = Student::findOrFail(base64_decode($id));
         return view('students.show_individual_std', compact('student'));
     }
@@ -385,7 +385,7 @@ class AdminController extends Controller
     public function show_children_lesson_plan(){
 
         $studentss = auth()->user()->students;
-        $students = [];
+        $students;
         foreach($studentss as $key => $student) {
             // if(!isset($student->lessons[$key]['id']) &&
             //     empty($student->lessons[$key]['id'])){
@@ -402,6 +402,7 @@ class AdminController extends Controller
             }
         }
         // dd($students);
+        // echo "<pre>";print_r($students);exit;
         return view('children.show_children_lesson_plan', compact('students'));  
     }
 }

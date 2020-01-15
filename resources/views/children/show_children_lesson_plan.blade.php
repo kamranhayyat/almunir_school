@@ -40,8 +40,9 @@
                     @foreach($students as $key => $lesson)
                     <tr>
                         <?php 
-                        // dd($lesson[$key]);
-                        if($lesson == null)
+                        // print_r($lesson[1]);exit;
+                        dd($lesson[0]);
+                        if($lesson[$key] == null)
                         {   
                             continue;
                         }

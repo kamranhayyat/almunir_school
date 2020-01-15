@@ -8,12 +8,12 @@
         @method('PATCH')
         <div class="card">
             <div class="card-header">
-                Edit Student
+                {{ auth()->user()->user_type == 2 ? 'View Student' : 'Edit Student' }}
             </div>
             <div class="card-body">
         <div class="form-group">
             <label for="">Com No</label>
-            <input type="text" name="com_no" class="form-control" value="{{ $student['com_no'] }}">
+            <input {{ auth()->user()->user_type == 2 ? 'readonly' : '' }} type="text" name="com_no" class="form-control" value="{{ $student['com_no'] }}">
         </div>
 
         <div class="form-group">
@@ -60,10 +60,11 @@
             <label for="">Father Mobile</label>
             <input type="text" name="father_mobile" class="form-control" value="{{ $student['father_mobile'] }}">
         </div>
-
+        @if(auth()->user()->user_type == 1)
         <div class="form-group">
             <button class="btn btn-primary">Update</button>
         </div>
+        @endif
     </div>
     </div>
     </form>
