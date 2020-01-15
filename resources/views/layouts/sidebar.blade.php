@@ -118,8 +118,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Students Module:</h6>
           <a class="collapse-item" href="{{ route('show-childrens') }}">Show Students</a>
+          <a class="collapse-item" href="{{ route('show-childrens-lesson-plan') }}">Lesson Plan</a>
           <a class="collapse-item" href="{{ route('show-childrens-study-material') }}">Study Material</a>
-          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">Lesson Plan</a>
           <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
         </div>
       </div>

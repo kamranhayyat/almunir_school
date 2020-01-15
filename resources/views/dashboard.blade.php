@@ -3,7 +3,7 @@
 @section('title', 'Almunir Schools')
 
 @section('content')
-    @if(isset($namazs) && auth()->user()->user_type == 1)
+    @if(isset($namazs) && !empty($namazs) && auth()->user()->user_type == 1)
         <div class="display-4 mb-3">
             Namaz Timings
         </div>

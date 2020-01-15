@@ -123,6 +123,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/childrens/study-material', 'AdminController@show_children_study_material')
     ->name('show-childrens-study-material');
 
+    Route::get('/childrens/lesson-plan', 'AdminController@show_children_lesson_plan')
+    ->name('show-childrens-lesson-plan');
+
 });
 
 //authentication routes

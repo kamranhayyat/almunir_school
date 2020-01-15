@@ -5,16 +5,15 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           List Lesson Plans
-            <a href="{{ route('students-lesson-plan-upload') }}"><button class="btn btn-primary btn-sm float-right">Upload Student Lesson</button></a>
+           List Student Lessons
+            {{-- <a href="{{ route('students-study-material-upload') }}"><button class="btn btn-primary btn-sm float-right">Upload Student Material</button></a> --}}
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped">
                 <thead>
-                    <th>Lesson name</th>
-                    <th>Lesson</th>
-                    <th>Class</th>
-                    <th>Section</th>
+                    <th>Title</th>
+                    <th>Lesson Description</th>
+                    <th>Class/Section</th>
                     <th>Operations</th>
                 </thead>
                 <tbody>
@@ -38,37 +37,31 @@
                             <strong>{{ $message }}</strong>
                     </div>
                     @endif
-                    @foreach($lessons as $lesson)
+                    @foreach($students as $key => $lesson)
                     <tr>
-                    <?php 
-                        $arr = explode(" ", $lesson['class_section']);
-                    ?>
-                        <td>{{$lesson['lesson_name']}}</td>
-                        <td>{{$lesson['lesson_pdf']}}</td>
-                        <td>{{$arr[0]}}</td>
-                        <td>{{$arr[1]}}</td>
+                        <?php 
+                        // dd($lesson[$key]);
+                        if($lesson == null)
+                        {   
+                            continue;
+                        }
+                        ?>
+                        <td>{{$lesson[$key]['lesson_name']}}</td>
+                        <td>{{$lesson[$key]['lesson_description']}}</td>
+                        <td>{{$lesson[$key]['class_section']}}</td>
                         <td>
                             <a class="btn btn-success btn-sm" 
                             href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
+                            ['pdf' => base64_encode($lesson[$key]['lesson_pdf'])]) }}">
                                 <i class="fas fa-download"></i>
                             </a>
-                            <form style="display:inline!important;" method="POST" 
-                            action="{{ route('delete-pdf', ['pdf' => base64_encode($lesson['lesson_pdf']),
-                             'id' => base64_encode($lesson['id'])]) }}">
-                                @method('DELETE')
-                                @csrf    
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
                         </td>
-                    </tr>
+                    </tr>   
                     @endforeach
                 </tbody>
             </table>
             {{-- pagination --}}
-            {{$lessons->links()}}
+            {{-- {{$students->links()}} --}}
         </div>
     </div>
 @endsection

@@ -114,9 +114,9 @@ class AdminController extends Controller
 
     public function upload_std_lesson(){
         $this->unauthorized_action();
-        $students = Student::distinct()->get(['class', 'section']);
-        // dd($students);
-        return view('students.upload_std_lesson' , compact('students'));
+        $classes = Student::select('class')->groupBy('class')->get()->toArray();
+        $sections = Student::select('section')->groupBy('section')->get()->toArray();
+        return view('students.upload_std_lesson' , compact('classes', 'sections'));
     }
 
     public function upload_std_lesson_pdf(Request $request){
@@ -181,8 +181,9 @@ class AdminController extends Controller
 
     public function study_material_upload(){
         $this->unauthorized_action();
-        $students = Student::distinct()->get(['class' , 'section']);
-        return view('students.upload_std_material' , compact('students'));
+        $classes = Student::select('class')->groupBy('class')->get()->toArray();
+        $sections = Student::select('section')->groupBy('section')->get()->toArray();
+        return view('students.upload_std_material' , compact('classes', 'sections'));
     }
 
     public function upload_std_material_pdf(Request $request){
@@ -203,7 +204,7 @@ class AdminController extends Controller
         Material::create([
             'material_name' => $attributes['material_name'],
             'material_description' => $attributes['material_description'],
-            'class_section' => $attributes['class'] . $attributes['section'],
+            'class_section' => $attributes['class'] . ' ' .$attributes['section'],
             'material_pdf' => str_replace(" ", "_", $uniqueFileName),
         ]);
 
@@ -370,14 +371,37 @@ class AdminController extends Controller
         $studentss = auth()->user()->students;
         $students = [];
         foreach($studentss as $key => $student) {
-            if(!isset($student->lessons[$key]['id']) &&
-                empty($student->lessons[$key]['id'])){
+            if($student->materials->isEmpty()){
+                $students[$key] = null;
+             }
+            else {
+                $students[$key] = $student->materials;
+            }
+        }
+        // dd($students);
+        return view('children.show_children_study_material', compact('students'));  
+    }
+
+    public function show_children_lesson_plan(){
+
+        $studentss = auth()->user()->students;
+        $students = [];
+        foreach($studentss as $key => $student) {
+            // if(!isset($student->lessons[$key]['id']) &&
+            //     empty($student->lessons[$key]['id'])){
+            //     $students[$key] = null;
+            //  }
+            // else {
+            //     $students[$key] = $student->lessons;
+            // }
+            if($student->lessons->isEmpty()){
                 $students[$key] = null;
              }
             else {
                 $students[$key] = $student->lessons;
             }
         }
-        return view('children.show_children_study_material', compact('students'));  
+        // dd($students);
+        return view('children.show_children_lesson_plan', compact('students'));  
     }
 }

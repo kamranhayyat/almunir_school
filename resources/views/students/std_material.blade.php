@@ -39,11 +39,14 @@
                     </div>
                     @endif
                     @foreach($materials as $material)
+                    <?php 
+                        $arr = explode(" ", $material['class_section']);
+                    ?>
                     <tr>
                         <td>{{$material['material_name']}}</td>
                         <td>{{$material['material_pdf']}}</td>
-                        <td>{{$material['class']}}</td>
-                        <td>{{$material['section']}}</td>
+                        <td>{{$arr[0]}}</td>
+                        <td>{{$arr[1]}}</td>
                         <td>
                             <a class="btn btn-success btn-sm" 
                             href="{{ route('download-pdf-material', 

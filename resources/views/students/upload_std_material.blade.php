@@ -35,8 +35,8 @@
                     <label for="">Class</label>
                     <select name="class" id="class" class="form-control">
                         <option selected>Please Select Class</option>
-                        @foreach ($students as $student)
-                            <option>{{$student['class'] }}</option>
+                        @foreach ($classes as $class)
+                            <option>{{$class['class'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -45,8 +45,8 @@
                     <label for="">Section</label>
                     <select name="section" id="section" class="form-control">
                         <option selected>Please Select Section</option>
-                        @foreach ($students as $student)
-                            <option>{{$student['section'] }}</option>
+                        @foreach ($sections as $section)
+                            <option>{{$section['section'] }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -11,4 +11,8 @@ class Student extends Model
     public function lessons(){
         return $this->hasMany(Lesson::class, 'class_section', 'class_section');
     }
+
+    public function materials(){
+        return $this->hasMany(Material::class, 'class_section', 'class_section');
+    }
 }
