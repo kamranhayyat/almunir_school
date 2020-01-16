@@ -7,7 +7,7 @@
         <div class="display-4 mb-3">
             Namaz Timings
         </div>
-        <div class="lead bg-dark text-white rounded p-3 mb-3">
+        <div class="lead bg-primary text-white rounded p-3 mb-3">
             <marquee behavior="scroll" direction="left" 
             onmouseover="this.stop();" 
             onmouseout="this.start();">

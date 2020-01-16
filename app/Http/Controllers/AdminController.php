@@ -105,6 +105,7 @@ class AdminController extends Controller
     public function show_individual_std($id){
         // $this->unauthorized_action();
         $student = Student::findOrFail(base64_decode($id));
+        // dd($student->std_complaints);
         return view('students.show_individual_std', compact('student'));
     }
 
@@ -339,7 +340,8 @@ class AdminController extends Controller
 
     public function complaints_upload(){
         $this->unauthorized_action();
-        return view('students.upload_std_complaint');
+        $com_nos = Student::select('com_no')->get()->toArray();
+        return view('students.upload_std_complaint', compact('com_nos'));
     }
 
     public function upload_complaints_pdf(Request $request){
@@ -347,18 +349,19 @@ class AdminController extends Controller
         $attributes = $this->validate($request, [
             'complaint_name'  => 'required',
             'complaint_description'  => 'required',
-            'student_complaint'  => 'required|mimes:pdf'
+            'student_complaint'  => 'required|mimes:pdf',
+            'com_no'  => 'required'
         ]);
 
         $uniqueFileName = $attributes['complaint_name'] . '.' .
         $request->file('student_complaint')->getClientOriginalExtension();
-
-        $request->file('student_complaint')->move(public_path('files') , $uniqueFileName);
+        $request->file('student_complaint')->move(public_path('files') , str_replace(" ", "_", $uniqueFileName));
 
         Complaint::create([
             'complaint_name' => $attributes['complaint_name'],
             'complaint_description' => $attributes['complaint_description'],
             'complaint_pdf' => str_replace(" ", "_", $uniqueFileName),
+            'com_no' => $attributes['com_no'],
         ]);
 
         return redirect('/students/complaints')->with('success', 'File uploaded successfully.');

@@ -15,17 +15,14 @@ class FirstSheetImport implements ToCollection, WithHeadingRow, WithBatchInserts
     {
         foreach ($rows as $row) 
         {
-            $this->validationFields($row);
-
-            $date_of_birth = explode(" ", $row['date_of_birth']);
-            
+            $this->validationFields($row);      
             Student::create([
                 'com_no' =>  $row['com'],
                 'reg_no' => $row['reg'],
                 'student_name' => $row['student_name'],
                 'father_name' => $row['father_name'],
                 'gender' => $row['gender'],
-                'dob' => date("Y-m-d", strtotime(str_replace("/","-",$date_of_birth[0]))),
+                'dob' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_of_birth']),
                 'class' => $row['class'],
                 'section' => $row['section'],
                 'class_section' => $row['class']. ' ' .$row['section'],

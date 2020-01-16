@@ -15,4 +15,8 @@ class Student extends Model
     public function materials(){
         return $this->hasMany(Material::class, 'class_section', 'class_section');
     }
+
+    public function std_complaints(){
+        return $this->hasMany(Complaint::class, 'com_no', 'com_no');
+    }
 }

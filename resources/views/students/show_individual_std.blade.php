@@ -13,7 +13,7 @@
             <div class="card-body">
         <div class="form-group">
             <label for="">Com No</label>
-            <input {{ auth()->user()->user_type == 2 ? 'readonly' : '' }} type="text" name="com_no" class="form-control" value="{{ $student['com_no'] }}">
+            <input readonly type="text" name="com_no" class="form-control" value="{{ $student['com_no'] }}">
         </div>
 
         <div class="form-group">
@@ -60,6 +60,73 @@
             <label for="">Father Mobile</label>
             <input type="text" name="father_mobile" class="form-control" value="{{ $student['father_mobile'] }}">
         </div>
+        
+        @foreach($student->std_complaints as $key => $complaint)
+            <div class="form-group">
+                <label for="">Complaint No {{$key + 1}}</label>
+                <a class="btn btn-success btn-sm float-right" 
+                                href="{{ route('download-pdf', 
+                                ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        @endforeach
+
+        <div class="form-group">
+            <label for="">Result</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label for="">Invoice</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label for="">Attendance</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label for="">Date Sheet</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label for="">Islamic Dua</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label for="">Noticeboard</label>
+            <a class="btn btn-success btn-sm float-right" 
+                            href="{{ route('download-pdf', 
+                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
+
         @if(auth()->user()->user_type == 1)
         <div class="form-group">
             <button class="btn btn-primary">Update</button>

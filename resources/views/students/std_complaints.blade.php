@@ -39,10 +39,10 @@
                     @foreach($complaints as $complaint)
                     <tr>
                         <td>{{$complaint['complaint_name']}}</td>
-                        <td>{{$complaint['complaints_pdf']}}</td>
+                        <td>{{$complaint['complaint_pdf']}}</td>
                         <td>
                             <a class="btn btn-success btn-sm" 
-                            href="{{ route('download-pdf-complaints', 
+                            href="{{ route('download-pdf', 
                             ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
                                 <i class="fas fa-download"></i>
                             </a>

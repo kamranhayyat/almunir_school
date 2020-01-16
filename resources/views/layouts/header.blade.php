@@ -107,20 +107,44 @@
         document.write(writeIslamicDate());
       </script>
     </div>
-    <!-- Topbar Search -->
-    {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-      <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search fa-sm"></i>
-          </button>
-        </div>
-      </div>
-    </form> --}}
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
+      <div class="lead font-weight-bold mt-4 mr-3">
+        <script>
+          let month, day, year;
+          let today = new Date();
+          day = today.getDate();
+          month = today.getMonth();
+          year = today.getFullYear();
+          if(month == 0) {
+            month = "January";
+          } else if(month ==1){
+            month = "February";
+          } else if(month ==2){
+            month = "March";
+          } else if(month ==3){
+            month = "April"; 
+          } else if(month ==4){
+            month = "May";
+          } else if(month ==5){
+            month = "June"; 
+          } else if(month ==6){
+            month = "July";  
+          } else if(month ==7){
+            month = "August";
+          } else if(month ==8){
+            month = "September";
+          } else if(month ==9){
+            month = "October";
+          } else if(month ==10){
+            month = "November";
+          } else if(month ==11){
+            month = "December";
+          }
+          document.write("" + day + " " + month + " " + year);
+        </script>
+      </div>
 
       <!-- Nav Item - Search Dropdown (Visible Only XS) -->
       <li class="nav-item dropdown no-arrow d-sm-none">

@@ -32,6 +32,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="">Student Computer Number</label>
+                    <select name="com_no" id="com_no" class="form-control">
+                        <option selected>Please Select Computer Number</option>
+                        @foreach ($com_nos as $com_no)
+                            <option>{{$com_no['com_no'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="">Upload Complaint</label>
                     <div class="custom-file">
                         <input name="student_complaint" class="custom-file-input" 
