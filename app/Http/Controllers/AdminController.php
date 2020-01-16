@@ -32,10 +32,33 @@ class AdminController extends Controller
         return view('dashboard', compact('namazs', 'notifications'));
     }
 
-    public function show_std(){
+    public function show_std(Request $request){
+
         $this->unauthorized_action();
-        $students = Student::paginate(20);
-        return view('students.show_std', compact('students'));
+
+        if(!empty($request->except('_token'))){
+            // dd($request->class);
+            $students = Student::
+            where('com_no','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('class','LIKE','%'.$request->class.'%')
+            ->orWhere('section','LIKE','%'.$request->section.'%')
+            ->paginate(20);
+            // dd($students);
+        } else {
+            $students = Student::paginate(20);
+        }
+        $classes = Student::select('class')->groupBy('class')->get()->toArray();
+        $sections = Student::select('section')->groupBy('section')->get()->toArray();
+        return view('students.show_std', compact('students', 'classes',
+         'sections', 'request'));
+
     }
 
     public function import_std(){

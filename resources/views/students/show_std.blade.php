@@ -6,8 +6,67 @@
     <div class="card">
         <div class="card-header">
            List Students
-            <a href="{{ route('import-students') }}"><button class="btn btn-primary btn-sm float-right">Import Students</button></a>
+           <a href="{{ route('import-students') }}"><button class="btn btn-primary btn-sm float-right ml-2">Import Students</button></a>
+           <button class="btn btn-secondary btn-sm float-right ml-2" data-toggle="modal" data-target="#exampleModal">Search Student</button>
+           @if($request->has('search'))
+            <a href="{{ route('show-students') }}" class="btn btn-secondary btn-sm float-right text-white">Reset</a>
+           @endif
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="{{ route('show-students') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Search</label>
+                            <input type="text" name="wildcard" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Gender</label><br>
+                            <input type="radio" name="gender" class="mr-2">Male <br>
+                            <input type="radio" name="gender" class="mr-2">Female
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Class</label><br>
+                            <select name="class" id="" class="form-control">
+                                <option selected>Please Select Class</option>
+                                @foreach($classes as $class)
+                                <option>{{ $class['class'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Section</label><br>
+                            <select name="section" id="" class="form-control">
+                                <option selected>Please Select Section</option>
+                                @foreach($sections as $section)
+                                <option>{{ $section['section'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="search">Search</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
         <div class="card-body">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -34,7 +93,7 @@
                     @endif
                     @foreach($students as $student)
                     <tr>
-                        <td><i style="color:{{ $student['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['roll_no']}}</td>
+                        <td><i style="color:{{ $student['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['reg_no']}}</td>
                         <td>{{$student['student_name']}}</td>
                         <td>{{$student['father_name']}}</td>
                         <td>{{$student['dob']}}</td>
@@ -65,7 +124,7 @@
                 </tbody>
             </table>
             {{-- pagination --}}
-            {{$students->links()}}
+            {{$students->appends($_GET)->links()}}
         </div>
     </div>
 @endsection
