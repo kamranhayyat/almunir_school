@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('std_notification_title');
             $table->text('std_notification');
+            $table->string('notification_pdf');
             $table->timestamps();
         });
     }

@@ -28,6 +28,17 @@
             <div class="card-body">
                 {{ $notification['std_notification'] }}
             </div>
+            @if(!empty($notification['student_complaint']) &&
+             isset($notification['student_complaint']))
+                <div class="container mb-3">
+                    <label for="" class="lead font-weight-bold">Noticeboard pdf</label>
+                    <a class="btn btn-success btn-sm float-right" 
+                                    href="{{ route('download-pdf', 
+                                    ['pdf' => base64_encode($notification['student_complaint'])]) }}">
+                                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            @endif
         </div>
     @endforeach
     @endif

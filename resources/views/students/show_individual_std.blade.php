@@ -61,7 +61,7 @@
             <input type="text" name="father_mobile" class="form-control" value="{{ $student['father_mobile'] }}">
         </div>
         
-        @foreach($student->std_complaints as $key => $complaint)
+        @forelse($student->std_complaints as $key => $complaint)
             <div class="form-group">
                 <label for="">Complaint No {{$key + 1}}</label>
                 <a class="btn btn-success btn-sm float-right" 
@@ -70,7 +70,35 @@
                                     <i class="fas fa-download"></i>
                 </a>
             </div>
-        @endforeach
+        @empty
+            <p class="lead font-weight-bold">No Complaints Found</p>
+        @endforelse
+
+        @forelse($student->lessons as $key => $lesson)
+            <div class="form-group">
+                <label for="">Lesson No {{$key + 1}}</label>
+                <a class="btn btn-success btn-sm float-right" 
+                                href="{{ route('download-pdf', 
+                                ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
+                                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        @empty
+            <p class="lead font-weight-bold">No Lessons Found</p>
+        @endforelse
+
+        @forelse($student->materials as $key => $material)
+            <div class="form-group">
+                <label for="">Material No {{$key + 1}}</label>
+                <a class="btn btn-success btn-sm float-right" 
+                                href="{{ route('download-pdf', 
+                                ['pdf' => base64_encode($material['material_pdf'])]) }}">
+                                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        @empty
+            <p class="lead font-weight-bold">No Study Materials Found</p>
+        @endforelse
 
         <div class="form-group">
             <label for="">Result</label>

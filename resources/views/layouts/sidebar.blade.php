@@ -122,7 +122,7 @@
       </div>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesLesson" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
         <span>Lesson Plan</span>
@@ -133,9 +133,9 @@
           <a class="collapse-item" href="{{ route('show-childrens-lesson-plan') }}">Lesson Plan</a>
         </div>
       </div>
-    </li>
+    </li> --}}
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesMaterial" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
         <span>Study Material</span>
@@ -146,7 +146,7 @@
           <a class="collapse-item" href="{{ route('show-childrens-study-material') }}">Study Material</a>
         </div>
       </div>
-    </li>
+    </li> --}}
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesEvents" aria-expanded="true" aria-controls="collapsePages">

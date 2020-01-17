@@ -169,7 +169,7 @@ class AdminController extends Controller
     public function show_individual_std($id){
         // $this->unauthorized_action();
         $student = Student::findOrFail(base64_decode($id));
-        // dd($student->std_complaints);
+        // dd($student->lessons);
         return view('students.show_individual_std', compact('student'));
     }
 
@@ -393,7 +393,25 @@ class AdminController extends Controller
 
     public function store_notification(Request $request){
         $this->unauthorized_action();
-        Notification::create($request->all());
+        // dd(request('notification_pdf'));
+
+        $attributes = $this->validate($request, [
+            'std_notification_title'  => 'required',
+            'std_notification'  => 'required',
+            'student_complaint'  => 'required|mimes:pdf'
+        ]);
+
+        $uniqueFileName = $attributes['std_notification_title'] . '.' .
+        $request->file('student_complaint')->getClientOriginalExtension();
+        $request->file('student_complaint')->move(public_path('files') , 
+        str_replace(" ", "_", $uniqueFileName));
+        // dd($attributes);
+        Notification::create([
+            'std_notification_title' => $attributes['std_notification_title'],
+            'std_notification' => $attributes['std_notification'],
+            'student_complaint' => str_replace(" ", "_", $uniqueFileName),
+            ]
+        );
         return redirect('/');
     }
 
