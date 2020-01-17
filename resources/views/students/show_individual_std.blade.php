@@ -75,8 +75,8 @@
         <div class="form-group">
             <label for="">Result</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-result', 
+                            ['pdf' => base64_encode($student['results'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>
@@ -84,8 +84,8 @@
         <div class="form-group">
             <label for="">Invoice</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-invoice', 
+                            ['pdf' => base64_encode($student['invoices'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>
@@ -93,8 +93,8 @@
         <div class="form-group">
             <label for="">Attendance</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-attendance', 
+                            ['pdf' => base64_encode($student['attendance'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>
@@ -102,8 +102,8 @@
         <div class="form-group">
             <label for="">Date Sheet</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-datesheet', 
+                            ['pdf' => base64_encode($student['date_sheet'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>
@@ -111,8 +111,8 @@
         <div class="form-group">
             <label for="">Islamic Dua</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-dua', 
+                            ['pdf' => base64_encode($student['islamic_dua'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>
@@ -120,8 +120,8 @@
         <div class="form-group">
             <label for="">Noticeboard</label>
             <a class="btn btn-success btn-sm float-right" 
-                            href="{{ route('download-pdf', 
-                            ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
+                            href="{{ route('download-pdf-noticeboard', 
+                            ['pdf' => base64_encode($student['notice_board'])]) }}">
                                 <i class="fas fa-download"></i>
             </a>
         </div>

@@ -25,7 +25,7 @@
                 </button>
                 </div>
                 <form action="{{ route('show-students') }}">
-                    @csrf
+                    {{-- @csrf --}}
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Search</label>

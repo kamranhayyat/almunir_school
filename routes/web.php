@@ -127,6 +127,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/childrens/lesson-plan', 'AdminController@show_children_lesson_plan')
     ->name('show-childrens-lesson-plan');
 
+    //students pdf
+
+    Route::get('/download/result/{pdf}', 'AdminController@getDownloadResult')
+    ->name('download-pdf-result');
+
+    Route::get('/download/invoice/{pdf}', 'AdminController@getDownloadInvoice')
+    ->name('download-pdf-invoice');
+
+    Route::get('/download/attendance/{pdf}', 'AdminController@getDownloadAttendance')
+    ->name('download-pdf-attendance');
+
+    Route::get('/download/datesheet/{pdf}', 'AdminController@getDownloadDatesheet')
+    ->name('download-pdf-datesheet');
+
+    Route::get('/download/dua/{pdf}', 'AdminController@getDownloadDua')
+    ->name('download-pdf-dua');
+
+    Route::get('/download/noticeboard/{pdf}', 'AdminController@getDownloadNoticeboard')
+    ->name('download-pdf-noticeboard');
+
 });
 
 //authentication routes

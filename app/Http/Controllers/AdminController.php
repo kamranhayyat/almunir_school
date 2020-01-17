@@ -11,6 +11,7 @@ use App\Notification;
 use App\Complaint;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
+// use Illuminate\Pagination\LengthAwarePaginator;
 use Excel;
 use DB;
 
@@ -36,23 +37,86 @@ class AdminController extends Controller
 
         $this->unauthorized_action();
 
-        if(!empty($request->except('_token'))){
-            // dd($request->class);
-            $students = Student::
-            where('com_no','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
-            ->orWhere('class','LIKE','%'.$request->class.'%')
-            ->orWhere('section','LIKE','%'.$request->section.'%')
+        if(count($request->all()) && !$request->has('page'))
+        {
+
+            // dd($request->all());
+
+            $students = Student::where('class', $request->class)
             ->paginate(20);
+
+            dd($students);
+
+            // $students = Student::
+            // orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
+            // ->where('class','LIKE','%'.$request->class.'%')
+            // ->where('section','LIKE','%'.$request->section.'%')
+            // ->get()
+            // ;
+
+            // dd($request->all());
+            // if($request->class === "Please Select Class"){
+            //     $request->class = null;
+            // }
+
+            // if($request->section === "Please Select Section"){
+            //     $request->section = null;
+            // }
+
+            // if($request->wildcard === ""){
+            //     $request->wildcard = null;
+            // }
+
+            if($request->class != ""){
+                $students = Student::where('class', $request->class)
+                ->paginate(20);
+            }
+
+            if($request->section != ""){
+                $students = Student::where('section', $request->section)
+                ->paginate(20)
+                ; 
+            }
+
+            // $students = Student::
+            // orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+            // ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
+            // ->where('class','LIKE','%'.$request->class.'%')
+            // ->where('section','LIKE','%'.$request->section.'%')
+            // // ->get()
+            // ;
+            // // dd($students);
+            // $bindings = $students->getBindings();
+            // dd($bindings);
+
+            // echo "entering";exit;
+            // $students = DB::select("SELECT * FROM students 
+            // Where class = '".$request->class."'
+            // OR student_name = '".$request->wildcard."' limit 20");
+            // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            // $itemCollection = collect($students);  
+            // $perPage = 20;
+            // $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all(); 
+            // $students = new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage); 
+            // $students->setPath($request->url()); 
+            // $students = collect($students);
             // dd($students);
         } else {
             $students = Student::paginate(20);
+            // dd($students);
         }
         $classes = Student::select('class')->groupBy('class')->get()->toArray();
         $sections = Student::select('section')->groupBy('section')->get()->toArray();
@@ -430,5 +494,71 @@ class AdminController extends Controller
         // dd($students);
         // echo "<pre>";print_r($students);exit;
         return view('children.show_children_lesson_plan', compact('students'));  
+    }
+
+    public function getDownloadInvoice($pdf_name){
+        $this->unauthorized_action();
+        $file= public_path(). "/uploads/invoices/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function getDownloadResult($pdf_name){
+        $this->unauthorized_action();
+        $file= public_path(). "/uploads/results/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function getDownloadDatesheet($pdf_name){
+        $this->unauthorized_action();
+        $file= public_path(). "/uploads/date_sheet/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function getDownloadAttendance($pdf_name){
+        $this->unauthorized_action();
+        $file= public_path(). "/uploads/attendance/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function getDownloadDua($pdf_name){
+        $this->unauthorized_action();
+        $file= public_path(). "/uploads/islamic_dua/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
+    }
+
+    public function getDownloadNoticeboard($pdf_name){
+        // $this->unauthorized_action();
+        $file= public_path(). "/uploads/notice_board/" . base64_decode($pdf_name);
+
+        $headers = array(
+                'Content-Type: application/pdf',
+                );      
+
+        return response()->download($file, 'filename.pdf', $headers);
     }
 }
