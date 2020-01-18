@@ -33,96 +33,160 @@ class AdminController extends Controller
         return view('dashboard', compact('namazs', 'notifications'));
     }
 
-    public function show_std(Request $request){
+    public function searchStudents(Request $request){
 
-        $this->unauthorized_action();
+        $classes = Student::select('class')->groupBy('class')->get()->toArray();
+        $sections = Student::select('section')->groupBy('section')->get()->toArray();
 
-        if(count($request->all()) && !$request->has('page'))
-        {
-
-            // dd($request->all());
-
-            $students = Student::where('class', $request->class)
+        $students = "";
+        
+        if($request->section == "" && $request->class == "" && $request->gender == "" && $request->wildcard == ""){
+            $students = Student::paginate(20);
+        }
+        else if($request->section == "" && $request->class == "" && $request->gender == ""){
+            $students = Student::
+            orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+            ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
             ->paginate(20);
-
-            dd($students);
-
-            // $students = Student::
-            // orWhere('com_no','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
-            // ->where('class','LIKE','%'.$request->class.'%')
-            // ->where('section','LIKE','%'.$request->section.'%')
-            // ->get()
-            // ;
-
-            // dd($request->all());
-            // if($request->class === "Please Select Class"){
-            //     $request->class = null;
-            // }
-
-            // if($request->section === "Please Select Section"){
-            //     $request->section = null;
-            // }
-
-            // if($request->wildcard === ""){
-            //     $request->wildcard = null;
-            // }
-
-            if($request->class != ""){
-                $students = Student::where('class', $request->class)
+            // dd( $students );
+        }
+        else if($request->gender == "" && $request->class == ""){
+            if($request->wildcard == ""){
+                $students = Student::where('section', $request->section)->paginate(20);
+                // dd( $students );
+            }
+            else {
+                $students = Student::where('section', $request->section)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
                 ->paginate(20);
             }
-
-            if($request->section != ""){
-                $students = Student::where('section', $request->section)
-                ->paginate(20)
-                ; 
-            }
-
-            // $students = Student::
-            // orWhere('com_no','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
-            // ->orWhere('gender','LIKE','%'.$request->wildcard.'%')
-            // ->where('class','LIKE','%'.$request->class.'%')
-            // ->where('section','LIKE','%'.$request->section.'%')
-            // // ->get()
-            // ;
-            // // dd($students);
-            // $bindings = $students->getBindings();
-            // dd($bindings);
-
-            // echo "entering";exit;
-            // $students = DB::select("SELECT * FROM students 
-            // Where class = '".$request->class."'
-            // OR student_name = '".$request->wildcard."' limit 20");
-            // $currentPage = LengthAwarePaginator::resolveCurrentPage();
-            // $itemCollection = collect($students);  
-            // $perPage = 20;
-            // $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all(); 
-            // $students = new LengthAwarePaginator($currentPageItems , count($itemCollection), $perPage); 
-            // $students->setPath($request->url()); 
-            // $students = collect($students);
-            // dd($students);
-        } else {
-            $students = Student::paginate(20);
-            // dd($students);
+            // dd( $students );
         }
+        else if($request->gender == "" && $request->section == ""){
+            if($request->wildcard == ""){
+                $students = Student::where('class', $request->class)->paginate(20);
+                // dd( $students );
+            }
+            else{
+                $students = Student::where('class', $request->class)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+                ->paginate(20);
+            }
+            // dd( $students );
+        }
+        else if($request->section == "" && $request->class == ""){
+            if($request->wildcard == ""){
+                $students = Student::where('gender', $request->gender)->paginate(20);
+                // dd( $students );
+            }
+            else{
+                $students = Student::where('gender', $request->gender)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+                ->paginate(20);
+            }
+            // dd( $students );
+        }
+        else if( $request->gender == "" ){
+            if($request->wildcard == "") {
+                $students = Student::where('class', $request->class)
+                ->where('section', $request->section)->paginate(20);
+                // dd( $students );
+            }
+            else {
+                $students = Student::where('class', $request->class)->where('section', $request->section)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+                ->paginate(20);
+            }
+            // dd( $students );
+        }
+        else if($request->class == "") {
+            if($request->wildcard == ""){
+                $students = Student::where('gender', $request->gender)->where('section', $request->section)
+                ->paginate(20);
+                // dd( $students );
+            }
+            else{
+                $students = Student::where('gender', $request->gender)->where('section', $request->section)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+                ->paginate(20);
+            }
+            // dd( $students );
+        }
+        else if($request->section == ""){
+            if($request->wildcard == ""){
+                $students = Student::where('gender', $request->gender)->where('class', $request->class)
+                ->paginate(20);
+                // dd( $students );
+            }
+            else{
+                $students = Student::where('gender', $request->gender)->where('class', $request->class)
+                ->orWhere('com_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('reg_no','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('student_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_name','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('dob','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_cnic','LIKE','%'.$request->wildcard.'%')
+                ->orWhere('father_mobile','LIKE','%'.$request->wildcard.'%')
+                ->paginate(20);
+            }
+            // dd( $students );
+        }
+        else{
+            // dd($request->all());
+            $students = Student::
+            where('gender', $request->gender)
+            ->where('section', $request->section)
+            ->where('class', $request->class)
+            ->paginate(20)
+            ;
+        }
+
+        return view('students.show_std', compact('students', 'classes',
+         'sections', 'request'));
+    }
+    
+    public function show_std(Request $request){
+        $this->unauthorized_action();
+        $students = Student::paginate(20);
         $classes = Student::select('class')->groupBy('class')->get()->toArray();
         $sections = Student::select('section')->groupBy('section')->get()->toArray();
         return view('students.show_std', compact('students', 'classes',
          'sections', 'request'));
-
     }
 
     public function import_std(){

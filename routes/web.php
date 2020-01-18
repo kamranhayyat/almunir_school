@@ -27,6 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/students', 'AdminController@show_std')
     ->name('show-students');
 
+    Route::get('/searchStudents', 'AdminController@searchStudents')
+    ->name('search-students');
+
     Route::get('/students/import', 'AdminController@import_std')
     ->name('import-students');
 
@@ -153,3 +156,13 @@ Route::group(['middleware' => 'auth'], function () {
 Auth::routes(['register' => false]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')
 ->name('logout');
+
+Route::get('/clear', function()
+{
+	Artisan::call('config:clear');
+	Artisan::call('cache:clear');
+	Artisan::call('view:clear');
+	Artisan::call('route:clear');
+	Artisan::call('config:cache');
+	return "Cache is cleared";
+});

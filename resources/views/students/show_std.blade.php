@@ -24,8 +24,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="{{ route('show-students') }}">
-                    {{-- @csrf --}}
+                <form action="{{ route('search-students') }}">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="">Search</label>
@@ -34,14 +34,14 @@
 
                         <div class="form-group">
                             <label for="">Gender</label><br>
-                            <input type="radio" name="gender" class="mr-2">Male <br>
-                            <input type="radio" name="gender" class="mr-2">Female
+                            <input type="radio" name="gender" value="MALE" class="mr-2">Male <br>
+                            <input type="radio" name="gender" value="FEMALE" class="mr-2">Female
                         </div>
 
                         <div class="form-group">
                             <label for="">Class</label><br>
                             <select name="class" id="" class="form-control">
-                                <option selected>Please Select Class</option>
+                                <option selected value="">Please Select Class</option>
                                 @foreach($classes as $class)
                                 <option>{{ $class['class'] }}</option>
                                 @endforeach
@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label for="">Section</label><br>
                             <select name="section" id="" class="form-control">
-                                <option selected>Please Select Section</option>
+                                <option selected value="">Please Select Section</option>
                                 @foreach($sections as $section)
                                 <option>{{ $section['section'] }}</option>
                                 @endforeach
