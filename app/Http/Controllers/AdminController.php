@@ -216,6 +216,10 @@ class AdminController extends Controller
         return response()->file($file);
     }
 
+    public function store_notification(Request $request){
+        dd($request->all());
+    }
+
     public function show_pdf_path($pdf_name){
 
         $arr = explode(" ", $pdf_name);
@@ -468,7 +472,9 @@ class AdminController extends Controller
 
     public function create_notification(){
         $this->unauthorized_action();
-        return view('notification.add_notification');
+        $classes = Student::select('class')->groupBy('class')->get()->toArray();
+        $sections = Student::select('section')->groupBy('section')->get()->toArray();
+        return view('notification.add_notification', compact('classes', 'sections'));
     }
 
     public function create_noticeboaord(){

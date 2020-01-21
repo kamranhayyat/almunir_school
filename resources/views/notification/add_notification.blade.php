@@ -34,14 +34,20 @@
                 <div class="form-group" id="std_class" style="display:none;">
                     <label for="">Class</label>
                     <select name="class" id="class" class="form-control">
-                        <option value=""></option>
+                        <option value="">Please Choose Class</option>
+                        @foreach($classes as $class)
+                            <option>{{ $class['class'] }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="form-group" id="std_section" style="display:none;">
                     <label for="">Section</label>
                     <select name="class" id="class" class="form-control">
-                        <option value=""></option>
+                        <option value=""> Please Choose Section</option>
+                        @foreach($sections as $section)
+                            <option>{{ $section['section'] }}</option>
+                        @endforeach
                     </select>
                 </div>
 

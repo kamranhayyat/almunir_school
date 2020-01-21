@@ -116,13 +116,13 @@ Route::group(['middleware' => 'auth'], function () {
     //notification
     Route::get('/student/noticeboard/create','AdminController@create_noticeboaord')
     ->name('student-noticeboaord-create');
-    Route::post('/student/notification/create','AdminController@store_noticeboaord')
+    Route::post('/student/noticeboard/create','AdminController@store_noticeboaord')
     ->name('student-noticeboaord-store');
 
     Route::get('/student/notification/create','AdminController@create_notification')
     ->name('student-notification-create');
 
-    Route::get('/student/notification/store','AdminController@store_notification')
+    Route::post('/student/notification/store','AdminController@store_notification')
     ->name('student-notification-store');
 
     //children
