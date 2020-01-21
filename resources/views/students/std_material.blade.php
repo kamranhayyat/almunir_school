@@ -70,7 +70,13 @@
                 </table>
             </div>
             {{-- pagination --}}
-            {{$materials->links()}}
+            <?php
+                $links = $materials->links();
+                $links = str_replace('<ul class="pagination">', 
+                '<ul class="pagination flex-wrap">', $links);
+                echo $links;
+            ?>
+            {{-- {{$materials->links()}} --}}
         </div>
     </div>
 @endsection

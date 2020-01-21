@@ -126,7 +126,13 @@
                 </table>
             </div>
             {{-- pagination --}}
-            {{$students->appends($_GET)->links()}}
+            <?php
+                $links = $students->appends($_GET)->links();
+                $links = str_replace('<ul class="pagination">', 
+                '<ul class="pagination flex-wrap">', $links);
+                echo $links;
+            ?>
+            {{-- {{$students->appends($_GET)->links()}} --}}
         </div>
     </div>
 @endsection

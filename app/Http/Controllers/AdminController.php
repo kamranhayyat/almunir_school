@@ -516,7 +516,8 @@ class AdminController extends Controller
         $term = $input['data'];
         $result = array();
         if(!empty($term)){
-            $students = Student::where('reg_no','LIKE','%'.$term.'%')->get();
+            $students = Student::where('reg_no','LIKE','%'.$term.'%')
+            ->take(10)->get();
             $output = '<ul class="w-100 dropdown-menu" 
             style="display:block; position:relative">';
             foreach($students as $student)

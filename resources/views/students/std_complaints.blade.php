@@ -63,7 +63,13 @@
             </table>
             </div>
             {{-- pagination --}}
-            {{$complaints->links()}}
+            <?php
+                $links = $complaints->links();
+                $links = str_replace('<ul class="pagination">', 
+                '<ul class="pagination flex-wrap">', $links);
+                echo $links;
+            ?>
+            {{-- {{$complaints->links()}} --}}
         </div>
     </div>
 @endsection

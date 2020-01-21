@@ -70,7 +70,13 @@
                 </table>
             </div>
             {{-- pagination --}}
-            {{$lessons->links()}}
+            <?php
+                $links = $lessons->links();
+                $links = str_replace('<ul class="pagination">', 
+                '<ul class="pagination flex-wrap">', $links);
+                echo $links;
+            ?>
+            {{-- {{$lessons->links()}} --}}
         </div>
     </div>
 @endsection
