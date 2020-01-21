@@ -11,6 +11,10 @@
 
   <title>@yield('title')</title>
 
+  <style>
+    li { cursor: pointer; }
+  </style>
+
   @yield('styles')
 
   <!-- Custom fonts for this template-->
@@ -19,6 +23,7 @@
 
   <!-- Custom styles for this template-->
   <link href="{{asset('theme/css/sb-admin-2.min.css')}}" rel="stylesheet">
+  {{-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
 
 </head>
 
@@ -88,6 +93,7 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('theme/vendor/jquery/jquery.min.js')}}"></script>
+  {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
   <script src="{{asset('theme/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
   <!-- Core plugin JavaScript-->
@@ -95,6 +101,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{asset('theme/js/sb-admin-2.min.js')}}"></script>
+
+  {{-- myscript --}}
+  <script src="{{asset('js/myscript.js')}}"></script>
 
   @yield('scripts')
 

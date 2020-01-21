@@ -17,6 +17,6 @@ class Student extends Model
     }
 
     public function std_complaints(){
-        return $this->hasMany(Complaint::class, 'com_no', 'com_no');
+        return $this->hasMany(Complaint::class, 'reg_no', 'reg_no');
     }
 }

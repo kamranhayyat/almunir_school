@@ -209,6 +209,22 @@ class AdminController extends Controller
         return back()->with('success', 'Excel Data Imported successfully.');
     }
 
+    public function show_pdf($pdf_name){
+
+        $file= public_path(). "/files/" . base64_decode($pdf_name);
+
+        return response()->file($file);
+    }
+
+    public function show_pdf_path($pdf_name){
+
+        $arr = explode(" ", $pdf_name);
+        // dd($arr[0]);
+        $file= public_path(). "/uploads/$arr[0]/" . base64_decode($arr[1]);
+
+        return response()->file($file);
+    }
+
     public function delete_std($id){
         $this->unauthorized_action();
         Student::findOrFail(base64_decode($id))->delete();
@@ -455,7 +471,12 @@ class AdminController extends Controller
         return view('notification.add_notification');
     }
 
-    public function store_notification(Request $request){
+    public function create_noticeboaord(){
+        $this->unauthorized_action();
+        return view('notification.add_noticeboaord');
+    }
+
+    public function store_noticeboaord(Request $request){
         $this->unauthorized_action();
         // dd(request('notification_pdf'));
 
@@ -484,6 +505,27 @@ class AdminController extends Controller
         return view('students.std_complaints', compact('complaints'));
     }
 
+    public function autocomplete(Request $request){
+        $input = $request->all();
+        $term = $input['data'];
+        $result = array();
+        if(!empty($term)){
+            $students = Student::where('reg_no','LIKE','%'.$term.'%')->get();
+            $output = '<ul class="w-100 dropdown-menu" 
+            style="display:block; position:relative">';
+            foreach($students as $student)
+            {
+                $output .= '
+                <li class="lead">'.$student->reg_no.'</li>
+                ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        } else {
+            $result = [];
+        }
+    }
+
     public function complaints_upload(){
         $this->unauthorized_action();
         $com_nos = Student::select('com_no')->get()->toArray();
@@ -496,9 +538,9 @@ class AdminController extends Controller
             'complaint_name'  => 'required',
             'complaint_description'  => 'required',
             'student_complaint'  => 'required|mimes:pdf',
-            'com_no'  => 'required'
+            'reg_no'  => 'required'
         ]);
-
+        
         $uniqueFileName = $attributes['complaint_name'] . '.' .
         $request->file('student_complaint')->getClientOriginalExtension();
         $request->file('student_complaint')->move(public_path('files') , str_replace(" ", "_", $uniqueFileName));
@@ -507,7 +549,7 @@ class AdminController extends Controller
             'complaint_name' => $attributes['complaint_name'],
             'complaint_description' => $attributes['complaint_description'],
             'complaint_pdf' => str_replace(" ", "_", $uniqueFileName),
-            'com_no' => $attributes['com_no'],
+            'reg_no' => $attributes['reg_no'],
         ]);
 
         return redirect('/students/complaints')->with('success', 'File uploaded successfully.');
@@ -559,13 +601,6 @@ class AdminController extends Controller
         $studentss = auth()->user()->students;
         $students;
         foreach($studentss as $key => $student) {
-            // if(!isset($student->lessons[$key]['id']) &&
-            //     empty($student->lessons[$key]['id'])){
-            //     $students[$key] = null;
-            //  }
-            // else {
-            //     $students[$key] = $student->lessons;
-            // }
             if($student->lessons->isEmpty()){
                 $students[$key] = null;
              }
@@ -573,8 +608,6 @@ class AdminController extends Controller
                 $students[$key] = $student->lessons;
             }
         }
-        // dd($students);
-        // echo "<pre>";print_r($students);exit;
         return view('children.show_children_lesson_plan', compact('students'));  
     }
 

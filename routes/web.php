@@ -16,7 +16,6 @@
 
 //     Route::post('/students/import', 'AdminController@import')
 //     ->name('import-students-excel');
-use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth'], function () {
     // User needs to be authenticated to enter here.
@@ -115,9 +114,15 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('store-namaz-timings-edit');
 
     //notification
+    Route::get('/student/noticeboard/create','AdminController@create_noticeboaord')
+    ->name('student-noticeboaord-create');
+    Route::post('/student/notification/create','AdminController@store_noticeboaord')
+    ->name('student-noticeboaord-store');
+
     Route::get('/student/notification/create','AdminController@create_notification')
     ->name('student-notification-create');
-    Route::post('/student/notification/create','AdminController@store_notification')
+
+    Route::get('/student/notification/store','AdminController@store_notification')
     ->name('student-notification-store');
 
     //children
@@ -150,6 +155,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/download/noticeboard/{pdf}', 'AdminController@getDownloadNoticeboard')
     ->name('download-pdf-noticeboard');
 
+
+    //view students pdf
+
+    Route::get('/view/pdf/{pdf}', 'AdminController@show_pdf')
+    ->name('pdf');
+
+    Route::get('/view/any-pdf/{pdf}', 'AdminController@show_pdf_path')
+    ->name('show-pdf');
+
+    //ajax request
+
+    Route::get('/autocomplete-reg-no', 'AdminController@autocomplete')
+    ->name('autocomplete');
+
 });
 
 //authentication routes
@@ -157,8 +176,7 @@ Auth::routes(['register' => false]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')
 ->name('logout');
 
-Route::get('/clear', function()
-{
+Route::get('/clear', function(){
 	Artisan::call('config:clear');
 	Artisan::call('cache:clear');
 	Artisan::call('view:clear');

@@ -18,7 +18,7 @@ class CreateComplaintsTable extends Migration
             $table->string('complaint_name');
             $table->text('complaint_description');
             $table->string('complaint_pdf');
-            $table->string('com_no');
+            $table->string('reg_no');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           Upload Complaints
+           Notification
         </div>
         <div class="card-body">
                 @if($errors->any())
@@ -22,25 +22,36 @@
             <form action={{ route ('student-notification-store')}} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Notification Title</label>
-                    <input name="std_notification_title" id="std_notification_title" rows="3" class="form-control">
+                    <label for="">Options</label>
+                    <select onchange="show_fields(this.value)" class="form-control" name="std_notification" id="std_notification">
+                        <option selected value="">Please Choose Your Desired Option</option>
+                        <option value="1">Class Wise</option>
+                        <option value="2">Class & Section Wise</option>
+                        <option value="3">General Notification</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="">Notification Body</label>
-                    <textarea name="std_notification" id="std_notification" rows="3" class="form-control"></textarea>
+
+                <div class="form-group" id="std_class" style="display:none;">
+                    <label for="">Class</label>
+                    <select name="class" id="class" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="std_section" style="display:none;">
+                    <label for="">Section</label>
+                    <select name="class" id="class" class="form-control">
+                        <option value=""></option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Upload Complaint</label>
-                    <div class="custom-file">
-                        <input name="student_complaint" class="custom-file-input" 
-                        type="file" id="student_complaint">
-                        <label class="custom-file-label" for="student_excel">Choose file</label>
-                    </div>
+                    <label for="">Notification</label>
+                    <textarea name="body" id="body" rows="3" class="form-control"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <button class="btn btn-primary">Upload</button>
-                    <a class="btn btn-secondary" href="{{ route('students-complaints') }}">Cancel</a>
+                    <button class="btn btn-primary">Send</button>
                 </div>
             </form>
         </div>

@@ -30,12 +30,17 @@
             </div>
             @if(!empty($notification['student_complaint']) &&
              isset($notification['student_complaint']))
-                <div class="container mb-3">
+                <div class="ml-3 mr-3 mb-3">
                     <label for="" class="lead font-weight-bold">Noticeboard pdf</label>
-                    <a class="btn btn-success btn-sm float-right" 
+                    <a class="btn btn-success btn-sm float-right ml-3" 
                                     href="{{ route('download-pdf', 
                                     ['pdf' => base64_encode($notification['student_complaint'])]) }}">
                                         <i class="fas fa-download"></i>
+                    </a>  
+                    <a class="btn btn-warning btn-sm float-right" 
+                    href="{{ route('show-pdf', 
+                    ['pdf' => base64_encode($notification['student_complaint'])]) }}">
+                        <i class="fas fa-file-pdf"></i>
                     </a>
                 </div>
             @endif

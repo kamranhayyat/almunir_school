@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           Upload Complaints
+           Noticeboard
         </div>
         <div class="card-body">
                 @if($errors->any())
@@ -19,27 +19,19 @@
                 </div>
                 @endif
                 
-            <form action={{ route ('students-complaints-upload-pdf')}} method="POST" enctype="multipart/form-data">
+            <form action={{ route ('student-noticeboaord-store')}} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Complaint Name</label>
-                    <input type="text" name="complaint_name" class="form-control" placeholder="Complaint">
+                    <label for="">Title</label>
+                    <input name="std_notification_title" id="std_notification_title" rows="3" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Body</label>
+                    <textarea name="std_notification" id="std_notification" rows="3" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Complaint Description</label>
-                    <textarea class="form-control" rows="4" name="complaint_description" placeholder="Complaint Description"></textarea>
-                </div>
-
-                <div class="form-group">
-                        <label for="reg_no">Student Registration Number</label>
-                        <input name="reg_no" id="reg_no" type="text" class="form-control">
-                        <div id="countryList">
-                        </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Upload Complaint</label>
+                    <label for="">Upload File</label>
                     <div class="custom-file">
                         <input name="student_complaint" class="custom-file-input" 
                         type="file" id="student_complaint">
@@ -48,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary">Upload</button>
-                    <a class="btn btn-secondary" href="{{ route('students-complaints') }}">Cancel</a>
+                    {{-- <a class="btn btn-secondary" href="{{ route('students-complaints') }}">Cancel</a> --}}
                 </div>
             </form>
         </div>

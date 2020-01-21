@@ -90,7 +90,7 @@
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-folder"></i>
         <span>Notification</span>
@@ -103,6 +103,60 @@
           <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
           <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
           <a class="collapse-item" href="{{ route('view-namaz-timings') }}">View Namaz Timings</a>
+        </div>
+      </div>
+    </li> --}}
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Events</span>
+      </a>
+      <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Events Module:</h6>
+          <a class="collapse-item" href="{{ route('create-events') }}">Add Event</a>
+          <a class="collapse-item" href="{{ route('show-events') }}">Show Events</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages6" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Namaz</span>
+      </a>
+      <div id="collapsePages6" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Namaz Module:</h6>
+          <a class="collapse-item" href="{{ route('add-namaz-timings') }}">Add Namaz Timings</a>
+          <a class="collapse-item" href="{{ route('view-namaz-timings') }}">View Namaz Timings</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Noticeboard</span>
+      </a>
+      <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Noticeboard Module:</h6>
+          <a class="collapse-item" href="{{ route('student-noticeboaord-create') }}">Add Noticeboard</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages5" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Notification</span>
+      </a>
+      <div id="collapsePages5" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Notification Module:</h6>
+          <a class="collapse-item" href="{{ route('student-notification-create') }}">Add Notification</a>
         </div>
       </div>
     </li>
