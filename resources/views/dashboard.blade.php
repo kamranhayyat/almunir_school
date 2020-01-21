@@ -38,7 +38,7 @@
                                         <i class="fas fa-download"></i>
                     </a>  
                     <a class="btn btn-warning btn-sm float-right" 
-                    href="{{ route('show-pdf', 
+                    href="{{ route('pdf', 
                     ['pdf' => base64_encode($notification['student_complaint'])]) }}">
                         <i class="fas fa-file-pdf"></i>
                     </a>

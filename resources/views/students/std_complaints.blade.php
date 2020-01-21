@@ -5,10 +5,11 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           List Stdent Complaints
+           List Complaints
             <a href="{{ route('students-complaints-upload') }}"><button class="btn btn-primary btn-sm float-right">Upload Complaints</button></a>
         </div>
         <div class="card-body">
+            <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
                     <th style="width:30%">Title</th>
@@ -60,6 +61,7 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
             {{-- pagination --}}
             {{$complaints->links()}}
         </div>

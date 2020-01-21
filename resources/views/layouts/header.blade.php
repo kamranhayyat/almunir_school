@@ -6,7 +6,7 @@
       <i class="fa fa-bars"></i>
     </button>
 
-    <div class="lead font-weight-bold mt-3 ml-2">
+    <div id="islamic_date" class="lead font-weight-bold mt-3 ml-2">
       <script>
         function gmod(n,m){
           return ((n%m)+m)%m;
@@ -110,7 +110,7 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-      <div class="lead font-weight-bold mt-4 mr-3">
+      <div id="georgian_date" class="lead font-weight-bold mt-4 mr-3">
         <script>
           let month, day, year;
           let today = new Date();

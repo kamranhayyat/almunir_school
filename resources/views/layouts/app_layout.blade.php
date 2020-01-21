@@ -13,6 +13,20 @@
 
   <style>
     li { cursor: pointer; }
+
+    @media only screen and (max-width: 600px) { 
+      .btn-sm {
+        padding: .35rem .4rem!important;
+        font-size: .875rem!important;
+        line-height: .5!important;
+        border-radius: .2rem!important;
+      }
+    
+      #islamic_date {display: none;}
+      #georgian_date {display: none;}
+      
+    }
+  
   </style>
 
   @yield('styles')
