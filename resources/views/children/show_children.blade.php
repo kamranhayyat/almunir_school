@@ -27,7 +27,7 @@
                     @endif
                     @foreach($childrens as $children)
                     <tr>
-                        <td><i style="color:{{ $children['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>
+                        <td><i style="color:{{ $children['status'] == 0 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>
                             <img src="{{asset('images/kid.jpg')}}" alt="" style="max-width:40px; border-radius: 5px;">
                             {{$children['reg_no']}}</td>
                         <td>{{$children['student_name']}}</td>

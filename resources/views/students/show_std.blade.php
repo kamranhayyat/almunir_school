@@ -94,7 +94,7 @@
                         @endif
                         @foreach($students as $student)
                         <tr>
-                            <td><i style="color:{{ $student['status'] == 1 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['reg_no']}}</td>
+                            <td><i style="color:{{ $student['status'] == 0 ? 'green' : 'red'}}" class="fas fa-lightbulb mr-2"></i>{{$student['reg_no']}}</td>
                             <td>{{$student['student_name']}}</td>
                             {{-- <td>{{$student['father_name']}}</td>
                             <td>{{$student['dob']}}</td>

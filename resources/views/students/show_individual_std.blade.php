@@ -62,6 +62,11 @@
             <input type="text" name="father_mobile" class="form-control" value="{{ $student['father_mobile'] }}">
         </div>
 
+        <div class="form-group">
+            <label for="">Mother Mobile</label>
+            <input type="text" name="mother_mobile" class="form-control" value="{{ $student['mother_mobile'] }}">
+        </div>
+
         @endif
         
         @forelse($student->std_complaints as $key => $complaint)
@@ -76,7 +81,7 @@
                 <a class="btn btn-warning btn-sm float-right" 
                                 href="{{ route('pdf', 
                                 ['pdf' => base64_encode($complaint['complaint_pdf'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                  View  <i class="fas fa-file-pdf"></i>
                 </a>
             </div>
         @empty
@@ -95,7 +100,7 @@
                 <a class="btn btn-warning btn-sm float-right" 
                                 href="{{ route('pdf', 
                                 ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                   View <i class="fas fa-file-pdf"></i>
                 </a>
             </div>
         @empty
@@ -114,7 +119,7 @@
                 <a class="btn btn-warning btn-sm float-right" 
                                 href="{{ route('pdf', 
                                 ['pdf' => base64_encode($material['material_pdf'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                  View  <i class="fas fa-file-pdf"></i>
                 </a>
             </div>
         @empty
@@ -132,7 +137,7 @@
             <a class="btn btn-warning btn-sm float-right" 
                             href="{{ route('show-pdf', 
                             ['pdf' => "results ".base64_encode($student['results'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                View  <i class="fas fa-file-pdf"></i>
             </a>
         </div>
 
@@ -147,7 +152,7 @@
             <a class="btn btn-warning btn-sm float-right" 
                             href="{{ route('show-pdf', 
                             ['pdf' => "invoices ".base64_encode($student['invoices'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                View    <i class="fas fa-file-pdf"></i>
             </a>
         </div>
 
@@ -162,7 +167,7 @@
             <a class="btn btn-warning btn-sm float-right" 
             href="{{ route('show-pdf', 
             ['pdf' => "attendance ".base64_encode($student['attendance'])]) }}">
-                    <i class="fas fa-file-pdf"></i>
+                View    <i class="fas fa-file-pdf"></i>
 </a>
         </div>
 
@@ -177,7 +182,7 @@
             <a class="btn btn-warning btn-sm float-right" 
                             href="{{ route('show-pdf', 
                             ['pdf' => "date_sheet ".base64_encode($student['date_sheet'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                View    <i class="fas fa-file-pdf"></i>
             </a>
         </div>
 
@@ -192,7 +197,7 @@
             <a class="btn btn-warning btn-sm float-right" 
                                 href="{{ route('show-pdf', 
                                 ['pdf' => "islamic_dua ".base64_encode($student['islamic_dua'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                View    <i class="fas fa-file-pdf"></i>
             </a>
         </div>
 
@@ -207,7 +212,7 @@
             <a class="btn btn-warning btn-sm float-right" 
                             href="{{ route('show-pdf', 
                             ['pdf' => "notice_board ".base64_encode($student['notice_board'])]) }}">
-                                    <i class="fas fa-file-pdf"></i>
+                                 View   <i class="fas fa-file-pdf"></i>
             </a>
         </div>
 

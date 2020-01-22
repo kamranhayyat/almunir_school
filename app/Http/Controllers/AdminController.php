@@ -271,6 +271,7 @@ class AdminController extends Controller
         $student->section = request('section');
         $student->father_cnic = request('father_cnic');
         $student->father_mobile = request('father_mobile');
+        $student->mother_mobile = request('mother_mobile');
 
         $student->save();
 
@@ -619,7 +620,7 @@ class AdminController extends Controller
     }
 
     public function getDownloadInvoice($pdf_name){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $file= public_path(). "/uploads/invoices/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -630,7 +631,7 @@ class AdminController extends Controller
     }
 
     public function getDownloadResult($pdf_name){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $file= public_path(). "/uploads/results/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -641,7 +642,7 @@ class AdminController extends Controller
     }
 
     public function getDownloadDatesheet($pdf_name){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $file= public_path(). "/uploads/date_sheet/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -652,7 +653,7 @@ class AdminController extends Controller
     }
 
     public function getDownloadAttendance($pdf_name){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $file= public_path(). "/uploads/attendance/" . base64_decode($pdf_name);
 
         $headers = array(
@@ -663,7 +664,7 @@ class AdminController extends Controller
     }
 
     public function getDownloadDua($pdf_name){
-        $this->unauthorized_action();
+        // $this->unauthorized_action();
         $file= public_path(). "/uploads/islamic_dua/" . base64_decode($pdf_name);
 
         $headers = array(

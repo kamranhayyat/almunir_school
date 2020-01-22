@@ -26,7 +26,10 @@ class CreateStudentsTable extends Migration
             $table->string('class_section');
             $table->string('father_cnic');
             $table->string('father_mobile');
+            $table->string('mother_mobile');
+            $table->string('password');
             $table->string('status');
+            $table->string('image');
             $table->string('results');
             $table->string('invoices');
             $table->string('attendance');
