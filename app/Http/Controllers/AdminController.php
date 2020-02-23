@@ -485,23 +485,23 @@ class AdminController extends Controller
 
     public function store_noticeboaord(Request $request){
         $this->unauthorized_action();
-        // dd(request('notification_pdf'));
+        // dd($request->all());
 
         $attributes = $this->validate($request, [
             'std_notification_title'  => 'required',
             'std_notification'  => 'required',
-            'student_complaint'  => 'required|mimes:pdf'
+            'student_notice'  => 'required|mimes:pdf'
         ]);
 
         $uniqueFileName = $attributes['std_notification_title'] . '.' .
-        $request->file('student_complaint')->getClientOriginalExtension();
-        $request->file('student_complaint')->move(public_path('files') , 
+        $request->file('student_notice')->getClientOriginalExtension();
+        $request->file('student_notice')->move(public_path('files') , 
         str_replace(" ", "_", $uniqueFileName));
         // dd($attributes);
         Notification::create([
             'std_notification_title' => $attributes['std_notification_title'],
             'std_notification' => $attributes['std_notification'],
-            'student_complaint' => str_replace(" ", "_", $uniqueFileName),
+            'notification_pdf' => str_replace(" ", "_", $uniqueFileName),
             ]
         );
         return redirect('/');

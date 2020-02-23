@@ -90,7 +90,7 @@
 
         @forelse($student->lessons as $key => $lesson)
             <div class="form-group">
-                <label for="">Lesson No {{$key + 1}}</label>
+                <label for="">{{$lesson['lesson_name']}}</label>
                 <a class="btn btn-success btn-sm float-right ml-3" 
                                 href="{{ route('download-pdf', 
                                 ['pdf' => base64_encode($lesson['lesson_pdf'])]) }}">
@@ -109,7 +109,7 @@
 
         @forelse($student->materials as $key => $material)
             <div class="form-group">
-                <label for="">Material No {{$key + 1}}</label>
+                <label for="">{{$material['material_name']}}</label>
                 <a class="btn btn-success btn-sm float-right ml-3" 
                                 href="{{ route('download-pdf', 
                                 ['pdf' => base64_encode($material['material_pdf'])]) }}">

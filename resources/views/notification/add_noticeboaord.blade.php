@@ -33,8 +33,8 @@
                 <div class="form-group">
                     <label for="">Upload File</label>
                     <div class="custom-file">
-                        <input name="student_complaint" class="custom-file-input" 
-                        type="file" id="student_complaint">
+                        <input name="student_notice" class="custom-file-input" 
+                        type="file" id="student_notice">
                         <label class="custom-file-label" for="student_excel">Choose file</label>
                     </div>
                 </div>
