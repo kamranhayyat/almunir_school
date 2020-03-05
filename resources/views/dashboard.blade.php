@@ -24,6 +24,11 @@
         <div class="card mb-3">
             <div class="card-header">
                 {{ $notification['std_notification_title'] }}
+                <a class="btn btn-warning btn-sm float-right" 
+                                href="{{ route('pdf', 
+                                ['pdf' => base64_encode($notification['notification_pdf'])]) }}">
+                                  View  <i class="fas fa-file-pdf"></i>
+                </a>
             </div>
             <div class="card-body">
                 {{ $notification['std_notification'] }}
