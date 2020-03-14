@@ -70,7 +70,7 @@
         @endif
         
         @forelse($student->std_complaints as $key => $complaint)
-            <div class="display-4">Complaints</div>
+            <div class="display-4 pb-3 pt-3">Complaints</div>
             <div class="form-group">
                 <label for="">Complaint No {{$key + 1}}</label>
                 <a class="btn btn-success btn-sm float-right ml-3" 
@@ -90,7 +90,7 @@
         @endforelse
 
         @forelse($student->lessons as $key => $lesson)
-            <div class="display-4 pb-3 pt-3">Lessons</div>
+            <div class="display-4 pb-3 pt-3">Lesson Plans</div>
             <div class="form-group">
                 <label for="">{{$lesson['lesson_name']}}</label>
                 <a class="btn btn-success btn-sm float-right ml-3" 
@@ -110,6 +110,7 @@
         @endforelse
 
         @forelse($student->materials as $key => $material)
+            <div class="display-4 pb-3 pt-3">Study Material</div>
             <div class="form-group">
                 <label for="">{{$material['material_name']}}</label>
                 <a class="btn btn-success btn-sm float-right ml-3" 
