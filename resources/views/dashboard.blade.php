@@ -23,12 +23,14 @@
     @foreach($notifications as $notification)
         <div class="card mb-3">
             <div class="card-header">
-                {{ $notification['std_notification_title'] }}
+                {{ $notification['std_noticeboard_title'] }}
+                @if($notification['noticeboard_pdf'] != null)
                 <a class="btn btn-warning btn-sm float-right" 
                                 href="{{ route('pdf', 
-                                ['pdf' => base64_encode($notification['notification_pdf'])]) }}">
+                                ['pdf' => base64_encode($notification['noticeboard_pdf'])]) }}">
                                   View  <i class="fas fa-file-pdf"></i>
                 </a>
+                @endif
             </div>
             <div class="card-body">
                 {{ $notification['std_notification'] }}
