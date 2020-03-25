@@ -143,7 +143,36 @@
       <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Noticeboard Module:</h6>
+          <a class="collapse-item" href="{{ route('student-noticeboaord-view') }}">View Noticeboards</a>
           <a class="collapse-item" href="{{ route('student-noticeboaord-create') }}">Add Noticeboard</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages11" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Islamic Dua</span>
+      </a>
+      <div id="collapsePages11" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Islamic Dua Module:</h6>
+          <a class="collapse-item" href="{{ route('student-dua-view') }}">View Duas</a>
+          <a class="collapse-item" href="{{ route('student-dua-create') }}">Upload Dua</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages10" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Datesheet</span>
+      </a>
+      <div id="collapsePages10" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Datesheet Module:</h6>
+          <a class="collapse-item" href="{{ route('student-noticeboaord-view') }}">View Datesheets</a>
+          <a class="collapse-item" href="{{ route('student-noticeboaord-create') }}">Upload Datesheet</a>
         </div>
       </div>
     </li>

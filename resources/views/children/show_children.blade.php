@@ -34,7 +34,16 @@
                         {{-- <td>{{$children['father_name']}}</td>
                         <td>{{$children['dob']}}</td>
                         <td>{{$children['class'] . ' / ' . $children['section']}}</td> --}}
-                        <td><a href="{{ route('edit-student', ['id' => base64_encode($children['id'])]) }}" class="btn btn-info btn-sm text-white">View</a></td>
+                        <td>
+                            <a href="{{ route('edit-student', ['id' => base64_encode($children['id'])]) }}" class="btn btn-info btn-sm text-white">View</a>
+                            @if(file_exists( public_path() . '/uploads/results/'. $children['invoices']))
+                            <a class="btn btn-warning btn-sm ml-2" 
+                                href="{{ route('show-pdf', 
+                                ['pdf' => "invoices ".base64_encode($children['invoices'])]) }}">
+                                    Fee Voucher   <i class="fas fa-file-pdf"></i>
+                            </a>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

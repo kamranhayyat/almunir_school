@@ -11,11 +11,11 @@
 |
 */
 
-// Route::get('/students/import', 'AdminController@import_std')
-//     ->name('import-students');
+Route::get('/students/import', 'AdminController@import_std')
+    ->name('import-students');
 
-//     Route::post('/students/import', 'AdminController@import')
-//     ->name('import-students-excel');
+    Route::post('/students/import', 'AdminController@import')
+    ->name('import-students-excel');
 
 Route::group(['middleware' => 'auth'], function () {
     // User needs to be authenticated to enter here.
@@ -29,11 +29,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/searchStudents', 'AdminController@searchStudents')
     ->name('search-students');
 
-    Route::get('/students/import', 'AdminController@import_std')
-    ->name('import-students');
+    // Route::get('/students/import', 'AdminController@import_std')
+    // ->name('import-students');
 
-    Route::post('/students/import', 'AdminController@import')
-    ->name('import-students-excel');
+    // Route::post('/students/import', 'AdminController@import')
+    // ->name('import-students-excel');
 
     Route::delete('/students/delete/{id}', 'AdminController@delete_std')
     ->name('delete-student');
@@ -113,12 +113,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/namaz/edit/{namaz}','AdminController@store_edited_namaz_timing')
     ->name('store-namaz-timings-edit');
 
-    //notification
+    //noticeboard
     Route::get('/student/noticeboard/create','AdminController@create_noticeboaord')
     ->name('student-noticeboaord-create');
     Route::post('/student/noticeboard/create','AdminController@store_noticeboaord')
     ->name('student-noticeboaord-store');
+    Route::get('/student/noticeboard/view','AdminController@view_noticeboard')
+    ->name('student-noticeboaord-view');
+    Route::delete('/student/noticeboard/delete/{id}/{pdf}','AdminController@delete_noticeboard')
+    ->name('delete-noticeboard');
 
+     //dua
+     Route::get('/student/dua/create','AdminController@create_dua')
+     ->name('student-dua-create');
+     Route::post('/student/dua/create','AdminController@store_dua')
+     ->name('student-dua-store');
+     Route::get('/student/dua/view','AdminController@view_dua')
+     ->name('student-dua-view');
+     Route::delete('/student/dua/delete/{id}/{pdf}','AdminController@delete_dua')
+     ->name('delete-dua');
+
+    //notification
     Route::get('/student/notification/create','AdminController@create_notification')
     ->name('student-notification-create');
 

@@ -8,7 +8,10 @@ use App\Material;
 use App\Event;
 use App\Namaz;
 use App\Notification;
+use App\Noticeboard;
 use App\Complaint;
+use App\Dua;
+use App\Datesheet;
 use Illuminate\Http\Request;
 use App\Imports\StudentsImport;
 // use Illuminate\Pagination\LengthAwarePaginator;
@@ -253,8 +256,11 @@ class AdminController extends Controller
     public function show_individual_std($id){
         // $this->unauthorized_action();
         $student = Student::findOrFail(base64_decode($id));
-        // dd($student->lessons);
-        return view('students.show_individual_std', compact('student'));
+        $only_class = explode(" ", $student['class_section']);
+        $lessons = Lesson::where('class_section', '=', $student['class_section'])
+        ->orWhere('class_section', '=', $only_class[0])
+        ->get();
+        return view('students.show_individual_std', compact('lessons', 'student'));
     }
 
     public function edit_std(Request $request, $id){
@@ -294,25 +300,41 @@ class AdminController extends Controller
 
     public function upload_std_lesson_pdf(Request $request){
         $this->unauthorized_action();
+        // dd($request->section);
         $attributes = $this->validate($request, [
             'lesson_name'  => 'required',
             'lesson_description'  => 'required',
             'class'  => 'required',
-            'section'  => 'required',
             'student_lesson'  => 'required|mimes:pdf'
         ]);
 
-        $uniqueFileName = $attributes['class'] .  '_' . $attributes['section'] . '.' .
-        $request->file('student_lesson')->getClientOriginalExtension();
+        if($request->section == 'Please Select Section') {
+            $uniqueFileName = $attributes['class'] .  '.' .
+            $request->file('student_lesson')->getClientOriginalExtension();
+        } else {
+            $uniqueFileName = $attributes['class'] .  '_' . $request->section . '.' .
+            $request->file('student_lesson')->getClientOriginalExtension();
+        }
 
         $request->file('student_lesson')->move(public_path('files') , $uniqueFileName);
 
-        Lesson::create([
-            'lesson_name' => $attributes['lesson_name'],
-            'lesson_description' => $attributes['lesson_description'],
-            'class_section' => $attributes['class'] . ' ' .$attributes['section'],
-            'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
-        ]);
+        if($request->section == 'Please Select Section') {
+            Lesson::create([
+                'lesson_name' => $attributes['lesson_name'],
+                'lesson_description' => $attributes['lesson_description'],
+                'class_section' => $attributes['class'],
+                'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
+                'flag' => 1,
+            ]);
+        } else {
+            Lesson::create([
+                'lesson_name' => $attributes['lesson_name'],
+                'lesson_description' => $attributes['lesson_description'],
+                'class_section' => $attributes['class'] . ' ' . $request->section,
+                'lesson_pdf' => str_replace(" ", "_", $uniqueFileName),
+                'flag' => 0,
+            ]);
+        }
 
         return redirect('/students/lesson-plan')->with('success', 'File uploaded successfully.');
         
@@ -483,28 +505,107 @@ class AdminController extends Controller
         return view('notification.add_noticeboaord');
     }
 
+    public function create_dua(){
+        $this->unauthorized_action();
+        return view('dua.create_dua');
+    }
+
+    public function view_noticeboard() {
+        $this->unauthorized_action();
+        $noticeboards = Noticeboard::all();
+        return view('notification.view_noticeboard', compact('noticeboards'));
+    }
+
+    public function view_dua() {
+        $this->unauthorized_action();
+        $duas = Dua::all();
+        return view('dua.view_dua', compact('duas'));
+    }
+
+    public function delete_noticeboard($id, $pdf) {
+        // dd($pdf);
+        $this->unauthorized_action();
+        if(file_exists(public_path(). "/files/" . base64_decode($pdf))){
+
+            unlink(public_path(). "/files/" . base64_decode($pdf));
+
+            Noticeboard::findOrFail(base64_decode($id))->delete();
+
+            return redirect()->back()->with('success-delete', 'File deleted successfully'); 
+
+        } else {
+
+            return redirect()->back()->with('unsuccess-delete', 'File not found'); 
+
+        }
+    }
+
+    public function delete_dua($id, $pdf) {
+        // dd($pdf);
+        $this->unauthorized_action();
+        if(file_exists(public_path(). "/files/" . base64_decode($pdf))){
+
+            unlink(public_path(). "/files/" . base64_decode($pdf));
+
+            Dua::findOrFail(base64_decode($id))->delete();
+
+            return redirect()->back()->with('success-delete', 'File deleted successfully'); 
+
+        } else {
+
+            return redirect()->back()->with('unsuccess-delete', 'File not found'); 
+
+        }
+    }
+
     public function store_noticeboaord(Request $request){
         $this->unauthorized_action();
         // dd($request->all());
 
         $attributes = $this->validate($request, [
-            'std_notification_title'  => 'required',
+            'std_noticeboard_title'  => 'required',
             'std_notification'  => 'required',
-            'student_notice'  => 'required|mimes:pdf'
+            'noticeboard_pdf'  => 'required|mimes:pdf'
         ]);
 
-        $uniqueFileName = $attributes['std_notification_title'] . '.' .
-        $request->file('student_notice')->getClientOriginalExtension();
-        $request->file('student_notice')->move(public_path('files') , 
+        $uniqueFileName = $attributes['std_noticeboard_title'] . '.' .
+        $request->file('noticeboard_pdf')->getClientOriginalExtension();
+        $request->file('noticeboard_pdf')->move(public_path('files') , 
         str_replace(" ", "_", $uniqueFileName));
         // dd($attributes);
-        Notification::create([
-            'std_notification_title' => $attributes['std_notification_title'],
+        NoticeBoard::create([
+            'std_noticeboard_title' => $attributes['std_noticeboard_title'],
             'std_notification' => $attributes['std_notification'],
-            'notification_pdf' => str_replace(" ", "_", $uniqueFileName),
+            'noticeboard_pdf' => str_replace(" ", "_", $uniqueFileName),
             ]
         );
-        return redirect('/');
+        return redirect('/student/noticeboard/view')
+            ->with('success', 'File uploaded successfully.');
+    }
+
+    public function store_dua(Request $request){
+        $this->unauthorized_action();
+        // dd($request->all());
+
+        $attributes = $this->validate($request, [
+            'std_dua_title'  => 'required',
+            'std_dua_body'  => 'required',
+            'dua_pdf'  => 'required|mimes:pdf'
+        ]);
+
+        $uniqueFileName = $attributes['std_dua_title'] . '.' .
+        $request->file('dua_pdf')->getClientOriginalExtension();
+        $request->file('dua_pdf')->move(public_path('files') , 
+        str_replace(" ", "_", $uniqueFileName));
+        // dd($attributes);
+        Dua::create([
+            'std_dua_title' => $attributes['std_dua_title'],
+            'std_dua_body' => $attributes['std_dua_body'],
+            'dua_pdf' => str_replace(" ", "_", $uniqueFileName),
+            ]
+        );
+        return redirect('/student/dua/view')
+            ->with('success', 'File uploaded successfully.');
     }
 
     public function show_complaints(){

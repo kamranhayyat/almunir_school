@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           Noticeboard
+           Islamic Dua
         </div>
         <div class="card-body">
                 @if($errors->any())
@@ -19,23 +19,23 @@
                 </div>
                 @endif
                 
-            <form action={{ route ('student-noticeboaord-store')}} method="POST" enctype="multipart/form-data">
+            <form action={{ route ('student-dua-store')}} method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="">Title</label>
-                    <input name="std_noticeboard_title" id="std_noticeboard_title" rows="3" class="form-control">
+                    <input name="std_dua_title" id="std_dua_title" rows="3" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Body</label>
-                    <textarea name="std_notification" id="std_notification" rows="3" class="form-control"></textarea>
+                    <textarea name="std_dua_body" id="std_dua_body" rows="3" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="">Upload File</label>
                     <div class="custom-file">
-                        <input name="noticeboard_pdf" class="custom-file-input" 
-                        type="file" id="noticeboard_pdf">
-                        <label class="custom-file-label" for="noticeboard_pdf">Choose file</label>
+                        <input name="dua_pdf" class="custom-file-input" 
+                        type="file" id="dua_pdf">
+                        <label class="custom-file-label" for="dua_pdf">Choose file</label>
                     </div>
                 </div>
                 <div class="form-group">
